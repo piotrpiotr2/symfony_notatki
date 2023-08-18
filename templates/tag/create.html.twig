@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.tag_create'|trans }}
+{% endblock %}
+
+{% block body %}
+    <a href="{{ url('tag_index') }}" title="{{ 'action.back'|trans }}">
+        {{ 'action.back'|trans }}
+    </a>
+    <h1>{{ 'title.tag_create'|trans }}</h1>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <div class="form-group row float-sm-right">
+        <input type="submit" value="{{ 'action.save'|trans }}" class="btn btn-primary"/>
+    </div>
+    <div class="form-group row float-sm-left">
+        <a href="{{ url('tag_index') }}" class="btn btn-link">
+            {{ 'action.back'|trans }}
+        </a>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

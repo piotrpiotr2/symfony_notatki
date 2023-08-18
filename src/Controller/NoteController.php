@@ -125,7 +125,8 @@ class NoteController extends AbstractController
     private function filters(Request $request): array
     {
         return [
-            'tag_id' => $request->query->getInt('filters_tag_id')
+            'tag_id' => $request->query->getInt('filters_tag_id'),
+            'category_id' => $request->query->getInt('filters_category_id')
         ];
     }
 }

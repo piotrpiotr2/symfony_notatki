@@ -46,7 +46,7 @@ class TodoListController extends AbstractController
     )]
     public function show(TodoList $todoList): Response
     {
-        return $this->render('todo_list/show.html.twig', [ 'todoList' => $todoList ]);
+        return $this->render('todo_lists/show.html.twig', [ 'todoList' => $todoList ]);
     }
 
     #[Route(
@@ -65,7 +65,7 @@ class TodoListController extends AbstractController
             return $this->redirectToRoute('todolist_index');
         }
 
-        return $this->render('todolist/create.html.twig', ['form' => $form->createView()]);
+        return $this->render('todo_lists/create.html.twig', ['form' => $form->createView()]);
     }
 
     #[Route(
@@ -90,7 +90,7 @@ class TodoListController extends AbstractController
         }
 
         return $this->render(
-            'todo_list/edit.html.twig',
+            'todo_lists/edit.html.twig',
             ['form' => $form->createView(), 'todoList' => $todoList,]
         );
     }
@@ -111,7 +111,7 @@ class TodoListController extends AbstractController
         }
 
         return $this->render(
-            'todo_list/delete.html.twig',
+            'todo_lists/delete.html.twig',
             ['form' => $form->createView(), 'todoList' => $todoList,]
         );
     }

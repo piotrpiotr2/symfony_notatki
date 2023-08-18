@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ tag.name }}
+{% endblock %}
+
+{% block body %}
+    <a href="{{ url('tag_index') }}" title="{{ 'action.back'|trans }}">
+        {{ 'action.back'|trans }}
+    </a>
+
+    <h1>{{ tag.name }}</h1>
+
+{% endblock %}

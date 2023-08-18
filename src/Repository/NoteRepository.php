@@ -71,14 +71,26 @@ class NoteRepository extends ServiceEntityRepository
     {
         $result = $this
             ->getOrCreateQueryBuilder()
+            ->select(
+                'partial note.{id, createdAt, updatedAt, title}',
+                'partial category.{id, name}',
+                'partial tags.{id, name}'
+            )
+            ->join('note.category', 'category')
+            ->leftJoin('note.tags', 'tags')
             ->orderBy('note.createdAt', 'DESC');
+
         return $this->filter($result, $filters);
     }
 
     private function filter(QueryBuilder $queryBuilder, array $filters = []): QueryBuilder
     {
+        if (isset($filters['category']) && $filters['category'] instanceof Category) {
+            $queryBuilder->andWhere('category = :category')->setParameter('category', $filters['category']);
+        }
+
         if (isset($filters['tag']) && $filters['tag'] instanceof Tag) {
-            $queryBuilder->andWhere('tags in (:tag)')->setParameter('tag', $filters['tag']);
+            $queryBuilder->andWhere('tags IN (:tag)')->setParameter('tag', $filters['tag']);
         }
 
         return $queryBuilder;

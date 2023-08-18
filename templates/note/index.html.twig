@@ -20,6 +20,8 @@
             <tr>
                 <th>{{ 'label.title'|trans }}</th>
                 <th>{{ 'label.created_at'|trans }}</th>
+                <td>{{ 'action.category_filter'|trans }}</td>
+                <td>{{ 'action.tags_filter'|trans }}</td>
                 <th>{{ 'label.actions'|trans }}</th>
             </tr>
             </thead>
@@ -33,6 +35,22 @@
                         </a>
                     </td>
                     <td>{{ note.createdAt|date('d.m.Y') }}</td>
+                    <td>
+                        <a href="{{ url('note_index', {'filters.category_id' : note.category.id}) }}" title="{{ note.category.name }}">
+                            {{ note.category.name }}
+                        </a>
+                    </td>
+                    <td>
+                        {% if note.tags is defined and note.tags|length %}
+                            {% for tag in note.tags %}
+                                <a href="{{ url('note_index', {'filters.tag_id' : tag.id}) }}" title="{{ tag.name }}">
+                                    {{ tag.name }}
+                                </a>
+                            {% endfor %}
+                        {% else %}
+                            &nbsp;
+                        {% endif %}
+                    </td>
                     <td>
                         <a href="{{ url('note_show', {id: note.id}) }}" title="{{ 'action.show'|trans }}">
                             {{ 'action.show'|trans }}

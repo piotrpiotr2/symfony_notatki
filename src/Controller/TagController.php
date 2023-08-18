@@ -37,21 +37,14 @@ class TagController extends AbstractController
     )]
     public function index(): Response
     {
-        $pagination = $this->tagService->getAll();
+        $tags = $this->tagService->getAll();
 
         return $this->render(
             'tag/index.html.twig',
-            ['pagination' => $pagination]
+            ['tags' => $tags]
         );
     }
 
-    /**
-     * Show action.
-     *
-     * @param Tag $tag Tag entity
-     *
-     * @return Response HTTP response
-     */
     #[Route(
         '/{id}',
         name: 'tag_show',
@@ -63,13 +56,6 @@ class TagController extends AbstractController
         return $this->render('tag/show.html.twig', ['tag' => $tag]);
     }
 
-    /**
-     * Create action.
-     *
-     * @param Request $request HTTP request
-     *
-     * @return Response HTTP response
-     */
     #[Route(
         '/create',
         name: 'tag_create',
@@ -114,7 +100,12 @@ class TagController extends AbstractController
         );
     }
 
-    #[Route('/{id}/delete', name: 'tag_delete', requirements: ['id' => '[1-9]\d*'], methods: 'GET|DELETE')]
+    #[Route(
+        '/{id}/delete',
+        name: 'tag_delete',
+        requirements: ['id' => '[1-9]\d*'],
+        methods: 'GET|DELETE'
+    )]
     public function delete(Request $request, Tag $tag): Response
     {
         $form = $this->createForm(FormType::class, $tag, [

@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ category.title }}
+    {{ category.name }}
 {% endblock %}
 
 {% block body %}
@@ -9,7 +9,7 @@
         {{ 'action.back'|trans }}
     </a>
 
-    <h1>{{ category.title }}</h1>
+    <h1>{{ category.name }}</h1>
 
     <div class="mt-3">
         <dt>{{ 'label.content'|trans }}</dt>

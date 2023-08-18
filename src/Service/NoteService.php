@@ -15,11 +15,14 @@ class NoteService
 
     private TagService $tagService;
 
-    public function __construct(NoteRepository $noteRepository, PaginatorInterface $paginator, TagService $tagService)
+    private CategoryService $categoryService;
+
+    public function __construct(NoteRepository $noteRepository, PaginatorInterface $paginator, TagService $tagService, CategoryService $categoryService)
     {
         $this->noteRepository = $noteRepository;
         $this->paginator = $paginator;
         $this->tagService = $tagService;
+        $this->categoryService = $categoryService;
     }
 
     public function save(Note $note): void
@@ -43,9 +46,18 @@ class NoteService
     {
         $resultFilters = [];
 
+        if (!empty($filters['category_id'])) {
+            $category = $this->categoryService->findOneById($filters['category_id']);
+            if (null !== $category) {
+                $resultFilters['category'] = $category;
+            }
+        }
+
         if (!empty($filters['tag_id'])) {
             $tag = $this->tagService->findOneById($filters['tag_id']);
-            if (null !== $tag) $resultFilters['tag'] = $tag;
+            if (null !== $tag) {
+                $resultFilters['tag'] = $tag;
+            }
         }
 
         return $resultFilters;

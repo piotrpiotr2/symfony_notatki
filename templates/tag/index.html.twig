@@ -1,19 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.categories'|trans }}
+    {{ 'title.tags'|trans }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title.categories'|trans }}</h1>
+    <h1>{{ 'title.tags'|trans }}</h1>
 
     <div class="mb-3">
-        <a href="{{ url('category_create') }}" title="{{ 'action.create'|trans }}">
+        <a href="{{ url('tag_create') }}" title="{{ 'action.create'|trans }}">
             {{ 'action.create'|trans }}
         </a>
     </div>
 
-    {% if categories is defined and categories|length %}
+    {% if tags is defined and tags|length %}
 
         <table class="table table-striped">
             <thead>
@@ -24,21 +24,21 @@
             </thead>
             <tbody>
 
-            {% for category in categories %}
+            {% for tag in tags %}
                 <tr>
                     <td>
-                        <a href="{{ url('category_show', {id: category.id}) }}" title="{{ 'action.show'|trans }}">
-                            {{ category.name }}
+                        <a href="{{ url('tag_show', {id: tag.id}) }}" title="{{ 'action.show'|trans }}">
+                            {{ tag.name }}
                         </a>
                     </td>
                     <td>
-                        <a href="{{ url('category_show', {id: category.id}) }}" title="{{ 'action.show'|trans }}">
+                        <a href="{{ url('tag_show', {id: tag.id}) }}" title="{{ 'action.show'|trans }}">
                             {{ 'action.show'|trans }}
                         </a>
-                        <a href="{{ url('category_edit', {id: category.id}) }}" title="{{ 'action.edit'|trans }}">
+                        <a href="{{ url('tag_edit', {id: tag.id}) }}" title="{{ 'action.edit'|trans }}">
                             {{ 'action.edit'|trans }}
                         </a>
-                        <a href="{{ url('category_delete', {id: category.id}) }}" title="{{ 'action.delete'|trans }}">
+                        <a href="{{ url('tag_delete', {id: tag.id}) }}" title="{{ 'action.delete'|trans }}">
                             {{ 'action.delete'|trans }}
                         </a>
                     </td>
