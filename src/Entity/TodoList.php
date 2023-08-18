@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\TodoListRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TodoListRepository::class)]
@@ -14,6 +15,8 @@ class TodoList
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Type('string')]
+    #[Assert\Length(min: 3, max: 255)]
     private ?string $title = null;
 
     public function getId(): ?int
