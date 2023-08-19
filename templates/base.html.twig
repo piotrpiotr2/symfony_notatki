@@ -14,6 +14,30 @@
 </head>
 <body>
 <main role="main" class="container-fluid">
+
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <div>{{ app.user.email }}</div>
+        <div>
+            <a href="{{ url('app_logout') }}">{{ 'action_logout'|trans }}</a>
+            <a href="{{ url('edit_user', {id: app.user.id}) }}">{{ 'action_edit_user'|trans }}</a>
+            <a href="{{ url('user_change_password', {id: app.user.id}) }}">{{ 'action_edit_user_password'|trans }}</a>
+        </div>
+    {% else %}
+        <div>
+            <a href="{{ url('app_login') }}">{{ 'action_login'|trans }}</a>
+        </div>
+    {% endif %}
+
+    {# ... #}
+    {% for type, messages in app.session.flashBag.all %}
+        {% for message in messages %}
+            <div class="alert alert-{{ type }}" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {# ... #}
+
     {% block body %}{% endblock %}
 </main>
 {% block javascripts %}

@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.users'|trans }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'title.users'|trans }}</h1>
+
+    {% if users is defined and users|length %}
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ 'label.email'|trans }}</th>
+                <th>{{ 'label.actions'|trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for user in users %}
+                <tr>
+                    <td>
+                        {{ user.email }}
+                    </td>
+                    <td>
+                        <a href="{{ url('edit_user', {id: user.id}) }}" title="{{ 'action.edit'|trans }}">
+                            {{ 'action.edit'|trans }}
+                        </a>
+                        <a href="{{ url('user_change_password', {id: user.id}) }}" title="{{ 'action.edit_password'|trans }}">
+                            {{ 'action.edit_password'|trans }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+        <p>{{ 'label.empty'|trans }}</p>
+    {% endif %}
+{% endblock %}
