@@ -3,14 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\TodoList;
+use App\Form\TodoType;
 use App\Service\TodoListService;
 use App\Form\TodoListType;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\Component\HttpFoundation\Response;
 
 #[Route('/todo-lists')]
 class TodoListController extends AbstractController
@@ -47,6 +48,31 @@ class TodoListController extends AbstractController
     public function show(TodoList $todoList): Response
     {
         return $this->render('todo_lists/show.html.twig', [ 'todoList' => $todoList ]);
+    }
+
+    #[Route(
+        '/{id}/update-todos',
+        name: 'update_todos',
+        methods: 'GET|POST'
+    )]
+    public function updateTodos(TodoList $todoList, Request $request): Response
+    {
+        $todosCheckboxes = [];
+        foreach ($todoList->getTodos() as $todo) {
+            $todosCheckboxes[] = [
+                'done' => $todo->isDone(),
+                'id' => $todo
+            ];
+        }
+
+        if ($request->isMethod('POST')) {
+            dd($request->getContent());
+            $this->todoListService->save($todoList);
+            $this->addFlash('success', $this->translator->trans('message.updated_successfully'));
+            return $this->redirectToRoute('todolist_index');
+        }
+
+        return $this->render('todo_lists/show.html.twig', [ 'todoList' => $todoList, 'todosCheckboxes' => $todosCheckboxes ]);
     }
 
     #[Route(

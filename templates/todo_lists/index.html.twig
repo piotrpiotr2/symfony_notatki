@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title.todos'|trans }}</h1>
+    <h1>{{ 'title.todo_lists'|trans }}</h1>
 
     <div class="mb-3">
         <a href="{{ url('todolist_create') }}" title="{{ 'action.create'|trans }}">
@@ -19,6 +19,7 @@
             <thead>
             <tr>
                 <th>{{ 'label.title'|trans }}</th>
+                <th>{{ 'label.todos_count'|trans }}</th>
                 <th>{{ 'label.actions'|trans }}</th>
             </tr>
             </thead>
@@ -29,6 +30,9 @@
                         <a href="{{ url('todolist_show', {id: todoList.id}) }}" title="{{ 'action.show'|trans }}">
                             {{ todoList.title }}
                         </a>
+                    </td>
+                    <td>
+                        {{ todoList.todos|length }}
                     </td>
                     <td>
                         <a href="{{ url('todolist_show', {id: todoList.id}) }}" title="{{ 'action.show'|trans }}">

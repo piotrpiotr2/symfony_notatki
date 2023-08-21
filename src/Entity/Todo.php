@@ -25,6 +25,13 @@ class Todo
     #[Assert\Length(min: 0, max: 2000)]
     private ?string $description = null;
 
+    #[ORM\ManyToOne(inversedBy: 'todos')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?TodoList $todoList = null;
+
+    #[ORM\Column]
+    private ?bool $done = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -50,6 +57,30 @@ class Todo
     public function setDescription(string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getTodoList(): ?TodoList
+    {
+        return $this->todoList;
+    }
+
+    public function setTodoList(?TodoList $todoList): static
+    {
+        $this->todoList = $todoList;
+
+        return $this;
+    }
+
+    public function isDone(): ?bool
+    {
+        return $this->done;
+    }
+
+    public function setDone(bool $done): static
+    {
+        $this->done = $done;
 
         return $this;
     }
