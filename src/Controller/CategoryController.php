@@ -31,7 +31,7 @@ class CategoryController extends AbstractController
     )]
     public function index(): Response
     {
-        $categories = $this->categoryService->getAllList();
+        $categories = $this->categoryService->getAllList($this->getUser());
 
         return $this->render(
             'category/index.html.twig',
@@ -47,6 +47,11 @@ class CategoryController extends AbstractController
     )]
     public function show(Category $category): Response
     {
+        if ($category->getAuthor()->getUserIdentifier() !== $this->getUser()->getUserIdentifier()) {
+            $this->addFlash('danger', $this->translator->trans('message.no_permission'));
+            return $this->redirectToRoute('category_index');
+        }
+
         return $this->render('category/show.html.twig', [ 'category' => $category ]);
     }
 
@@ -62,6 +67,7 @@ class CategoryController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $category->setAuthor($this->getUser());
             $this->categoryService->save($category);
             $this->addFlash('success', $this->translator->trans('message.created_successfully'));
             return $this->redirectToRoute('category_index');
@@ -78,6 +84,11 @@ class CategoryController extends AbstractController
     )]
     public function edit(Request $request, Category $category): Response
     {
+        if ($category->getAuthor()->getUserIdentifier() !== $this->getUser()->getUserIdentifier()) {
+            $this->addFlash('danger', $this->translator->trans('message.no_permission'));
+            return $this->redirectToRoute('category_index');
+        }
+
         $form = $this->createForm(
             CategoryType::class, $category,
             ['method' => 'PUT', 'action' => $this->generateUrl('category_edit', ['id' => $category->getId()])]
@@ -100,6 +111,11 @@ class CategoryController extends AbstractController
     #[Route('/{id}/delete', name: 'category_delete', methods: 'GET|DELETE')]
     public function delete(Category $category, Request $request): Response
     {
+        if ($category->getAuthor()->getUserIdentifier() !== $this->getUser()->getUserIdentifier()) {
+            $this->addFlash('danger', $this->translator->trans('message.no_permission'));
+            return $this->redirectToRoute('category_index');
+        }
+
         $form = $this->createForm(FormType::class, $category, [
             'method' => 'DELETE',
             'action' => $this->generateUrl('category_delete', ['id' => $category->getId()]),

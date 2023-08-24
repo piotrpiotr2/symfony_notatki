@@ -31,9 +31,10 @@ class NoteController extends AbstractController
     )]
     public function index(Request $request): Response
     {
+        $user = $this->getUser();
         $filters = $this->filters($request);
         $page = $request->query->getInt('page', 1);
-        $pagination = $this->noteService->getPaginatedList($page, $filters);
+        $pagination = $this->noteService->getPaginatedList($page, $user, $filters);
 
         return $this->render(
             'note/index.html.twig',
@@ -49,6 +50,11 @@ class NoteController extends AbstractController
     )]
     public function show(Note $note): Response
     {
+        if ($note->getAuthor()->getUserIdentifier() !== $this->getUser()->getUserIdentifier()) {
+            $this->addFlash('danger', $this->translator->trans('message.no_permission'));
+            return $this->redirectToRoute('note_index');
+        }
+
         return $this->render('note/show.html.twig', [ 'note' => $note ]);
     }
 
@@ -64,6 +70,7 @@ class NoteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $note->setAuthor($this->getUser());
             $this->noteService->save($note);
             $this->addFlash('success', $this->translator->trans('message.created_successfully'));
             return $this->redirectToRoute('note_index');
@@ -80,6 +87,11 @@ class NoteController extends AbstractController
     )]
     public function edit(Request $request, Note $note): Response
     {
+        if ($note->getAuthor()->getUserIdentifier() !== $this->getUser()->getUserIdentifier()) {
+            $this->addFlash('danger', $this->translator->trans('message.no_permission'));
+            return $this->redirectToRoute('note_index');
+        }
+
         $form = $this->createForm(
             NoteType::class,
             $note,
@@ -103,6 +115,11 @@ class NoteController extends AbstractController
     #[Route('/{id}/delete', name: 'note_delete', requirements: ['id' => '[1-9]\d*'], methods: 'GET|DELETE')]
     public function delete(Request $request, Note $note): Response
     {
+        if ($note->getAuthor()->getUserIdentifier() !== $this->getUser()->getUserIdentifier()) {
+            $this->addFlash('danger', $this->translator->trans('message.no_permission'));
+            return $this->redirectToRoute('note_index');
+        }
+
         $form = $this->createForm(FormType::class, $note, [
             'method' => 'DELETE',
             'action' => $this->generateUrl('note_delete', ['id' => $note->getId()]),

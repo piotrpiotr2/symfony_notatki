@@ -6,13 +6,14 @@
 namespace App\DataFixtures;
 
 use App\Entity\Category;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 /**
  * Class CategoryFixtures.
  *
  * @psalm-suppress MissingConstructor
  */
-class CategoryFixtures extends AbstractBaseFixtures
+class CategoryFixtures extends AbstractBaseFixtures implements DependentFixtureInterface
 {
     /**
      * Load data.
@@ -26,9 +27,25 @@ class CategoryFixtures extends AbstractBaseFixtures
             $category = new Category();
             $category->setName($this->faker->unique()->word);
 
+            $user = $this->getRandomReference('users');
+            $category->setAuthor($user);
+
             return $category;
         });
 
         $this->manager->flush();
+    }
+
+    /**
+     * This method must return an array of fixtures classes
+     * on which the implementing class depends on.
+     *
+     * @return string[] of dependencies
+     *
+     * @psalm-return array{0: CategoryFixtures::class}
+     */
+    public function getDependencies(): array
+    {
+        return [UserFixtures::class];
     }
 }

@@ -47,32 +47,11 @@ class TodoListController extends AbstractController
     )]
     public function show(TodoList $todoList): Response
     {
+        if ($todoList->getAuthor()->getUserIdentifier() !== $this->getUser()->getUserIdentifier()) {
+            $this->addFlash('danger', $this->translator->trans('message.no_permission'));
+            return $this->redirectToRoute('note_index');
+        }
         return $this->render('todo_lists/show.html.twig', [ 'todoList' => $todoList ]);
-    }
-
-    #[Route(
-        '/{id}/update-todos',
-        name: 'update_todos',
-        methods: 'GET|POST'
-    )]
-    public function updateTodos(TodoList $todoList, Request $request): Response
-    {
-        $todosCheckboxes = [];
-        foreach ($todoList->getTodos() as $todo) {
-            $todosCheckboxes[] = [
-                'done' => $todo->isDone(),
-                'id' => $todo
-            ];
-        }
-
-        if ($request->isMethod('POST')) {
-            dd($request->getContent());
-            $this->todoListService->save($todoList);
-            $this->addFlash('success', $this->translator->trans('message.updated_successfully'));
-            return $this->redirectToRoute('todolist_index');
-        }
-
-        return $this->render('todo_lists/show.html.twig', [ 'todoList' => $todoList, 'todosCheckboxes' => $todosCheckboxes ]);
     }
 
     #[Route(
@@ -86,6 +65,7 @@ class TodoListController extends AbstractController
         $form = $this->createForm(TodoListType::class, $todoList);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $todoList->setAuthor($this->getUser());
             $this->todoListService->save($todoList);
             $this->addFlash('success', $this->translator->trans('message.created_successfully'));
             return $this->redirectToRoute('todolist_index');
@@ -102,6 +82,10 @@ class TodoListController extends AbstractController
     )]
     public function edit(Request $request, TodoList $todoList): Response
     {
+        if ($todoList->getAuthor()->getUserIdentifier() !== $this->getUser()->getUserIdentifier()) {
+            $this->addFlash('danger', $this->translator->trans('message.no_permission'));
+            return $this->redirectToRoute('note_index');
+        }
         $form = $this->createForm(
             TodoListType::class,
             $todoList,
@@ -124,6 +108,10 @@ class TodoListController extends AbstractController
     #[Route('/{id}/delete', name: 'todolist_delete', requirements: ['id' => '[1-9]\d*'], methods: 'GET|DELETE')]
     public function delete(Request $request, TodoList $todoList): Response
     {
+        if ($todoList->getAuthor()->getUserIdentifier() !== $this->getUser()->getUserIdentifier()) {
+            $this->addFlash('danger', $this->translator->trans('message.no_permission'));
+            return $this->redirectToRoute('note_index');
+        }
         $form = $this->createForm(FormType::class, $todoList, [
             'method' => 'DELETE',
             'action' => $this->generateUrl('todolist_delete', ['id' => $todoList->getId()]),

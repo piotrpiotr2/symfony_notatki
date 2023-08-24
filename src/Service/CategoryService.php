@@ -9,6 +9,7 @@ use App\Entity\Category;
 use App\Repository\NoteRepository;
 use App\Repository\CategoryRepository;
 use Exception;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class CategoryService
 {
@@ -69,9 +70,10 @@ class CategoryService
         }
     }
 
-    public function getAllList(): array
+    public function getAllList(UserInterface $user): array
     {
-        return $this->categoryRepository->queryAll();
+        $query = $this->categoryRepository->queryByAuthor($user)->getQuery();
+        return $query->execute();
     }
 
     public function findOneById(int $id): ?Category

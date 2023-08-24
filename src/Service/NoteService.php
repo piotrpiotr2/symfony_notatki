@@ -3,9 +3,11 @@
 namespace App\Service;
 
 use App\Entity\Note;
+use App\Entity\User;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use App\Repository\NoteRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class NoteService
 {
@@ -35,11 +37,11 @@ class NoteService
         $this->noteRepository->delete($note);
     }
 
-    public function getPaginatedList(int $page, array $filters = []): PaginationInterface
+    public function getPaginatedList(int $page, UserInterface $user, array $filters = []): PaginationInterface
     {
         $filters = $this->prepareFilters($filters);
         return $this->paginator->paginate(
-            $this->noteRepository->queryAll($filters), $page, NoteRepository::PAGINATOR_ITEMS_PER_PAGE);
+            $this->noteRepository->queryByAuthor($user, $filters), $page, NoteRepository::PAGINATOR_ITEMS_PER_PAGE);
     }
 
     private function prepareFilters(array $filters): array

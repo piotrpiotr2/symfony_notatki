@@ -4,7 +4,9 @@ namespace App\Repository;
 
 use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @extends ServiceEntityRepository<Category>
@@ -33,11 +35,36 @@ class CategoryRepository extends ServiceEntityRepository
         $this->_em->flush();
     }
 
-    public function queryAll(): array
+    /**
+     * Get or create new query builder.
+     *
+     * @param QueryBuilder|null $queryBuilder Query builder
+     *
+     * @return QueryBuilder Query builder
+     */
+    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
     {
-        return $this->findAll();
+        return $queryBuilder ?? $this->createQueryBuilder('category');
     }
 
+    /**
+     * Query notes by author.
+     *
+     * @param UserInterface $user User entity
+     * @return QueryBuilder Query builder
+     */
+    public function queryByAuthor(UserInterface $user): QueryBuilder
+    {
+        return $this
+            ->queryAll()
+            ->andWhere('category.author = :author')
+            ->setParameter('author', $user);
+    }
+
+    public function queryAll(): QueryBuilder
+    {
+        return $this->getOrCreateQueryBuilder();
+    }
     public function findOneById(int $id): ?Category
     {
         return $this->find($id);

@@ -5,7 +5,9 @@ namespace App\Repository;
 use App\Entity\Tag;
 use App\Entity\TodoList;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @extends ServiceEntityRepository<TodoList>
@@ -34,6 +36,30 @@ class TodoListRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, TodoList::class);
+    }
+
+    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
+    {
+        return $queryBuilder ?? $this->createQueryBuilder('todo_list');
+    }
+
+    /**
+     * Query notes by author.
+     *
+     * @param UserInterface $user User entity
+     * @return QueryBuilder Query builder
+     */
+    public function queryByAuthor(UserInterface $user): QueryBuilder
+    {
+        return $this
+            ->queryAll()
+            ->andWhere('todo_list.author = :author')
+            ->setParameter('author', $user);
+    }
+
+    public function queryAll(): QueryBuilder
+    {
+        return $this->getOrCreateQueryBuilder();
     }
 
 //    /**
