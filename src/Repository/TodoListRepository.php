@@ -61,18 +61,6 @@ class TodoListRepository extends ServiceEntityRepository
     }
 
     /**
-     * Get or create query builder
-     *
-     * @param QueryBuilder|null $queryBuilder
-     *
-     * @return QueryBuilder
-     */
-    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
-    {
-        return $queryBuilder ?? $this->createQueryBuilder('todo_list');
-    }
-
-    /**
      * Query todo lists by author
      *
      * @param UserInterface $user User entity
@@ -95,5 +83,17 @@ class TodoListRepository extends ServiceEntityRepository
     public function queryAll(): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder();
+    }
+
+    /**
+     * Get or create query builder
+     *
+     * @param QueryBuilder|null $queryBuilder
+     *
+     * @return QueryBuilder
+     */
+    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
+    {
+        return $queryBuilder ?? $this->createQueryBuilder('todo_list');
     }
 }

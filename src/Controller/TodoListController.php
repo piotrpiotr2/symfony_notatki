@@ -116,7 +116,12 @@ class TodoListController extends AbstractController
     }
 
     /**
-     * Edit action.
+     * Edit action
+     *
+     * @param Request  $request
+     * @param TodoList $todoList
+     *
+     * @return Response
      */
     #[Route(
         '/{id}/edit',
@@ -152,6 +157,11 @@ class TodoListController extends AbstractController
 
     /**
      * Delete action.
+     *
+     * @param Request  $request
+     * @param TodoList $todoList
+     *
+     * @return Response
      */
     #[Route('/{id}/delete', name: 'todolist_delete', requirements: ['id' => '[1-9]\d*'], methods: 'GET|DELETE')]
     public function delete(Request $request, TodoList $todoList): Response
