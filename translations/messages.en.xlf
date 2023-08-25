@@ -18,17 +18,13 @@
         <source>label.content</source>
         <target>Content</target>
       </trans-unit>
-      <trans-unit id="label.tags">
-        <source>label.tags</source>
-        <target>Tags</target>
-      </trans-unit>
       <trans-unit id="message.empty_list">
         <source>message.empty_list</source>
-        <target>List is empty.</target>
+        <target>List is empty!</target>
       </trans-unit>
       <trans-unit id="message.record_not_found">
         <source>message.record_not_found</source>
-        <target>Record not found.</target>
+        <target>Not found</target>
       </trans-unit>
       <trans-unit id="title.record_list">
         <source>title.record_list</source>
@@ -36,7 +32,259 @@
       </trans-unit>
       <trans-unit id="title.record_view">
         <source>title.record_view</source>
-        <target>Record view #%id%</target>
+        <target>Details #%id%</target>
+      </trans-unit>
+      <trans-unit id="message.no_permission">
+          <source>message.no_permission</source>
+          <target>No permission</target>
+      </trans-unit>
+      <trans-unit id="message.created_successfully">
+          <source>message.created_successfully</source>
+          <target>Created</target>
+      </trans-unit>
+      <trans-unit id="message.updated_successfully">
+          <source>message.updated_successfully</source>
+          <target>Edited</target>
+      </trans-unit>
+      <trans-unit id="message.deleted_successfully">
+          <source>message.deleted_successfully</source>
+          <target>Deleted</target>
+      </trans-unit>
+      <trans-unit id="label.name">
+          <source>label.name</source>
+          <target>Name</target>
+      </trans-unit>
+      <trans-unit id="label.password">
+          <source>label.password</source>
+          <target>Password</target>
+      </trans-unit>
+      <trans-unit id="label.repeat_password">
+          <source>label.repeat_password</source>
+          <target>Repeat password</target>
+      </trans-unit>
+      <trans-unit id="label.tags">
+          <source>label.tags</source>
+          <target>Tags</target>
+      </trans-unit>
+      <trans-unit id="label.none">
+          <source>label.none</source>
+          <target>Nothing here</target>
+      </trans-unit>
+      <trans-unit id="label.category">
+          <source>label.category</source>
+          <target>Category</target>
+      </trans-unit>
+      <trans-unit id="label.header">
+          <source>label.header</source>
+          <target>Header</target>
+      </trans-unit>
+      <trans-unit id="label.description">
+          <source>label.description</source>
+          <target>Description</target>
+      </trans-unit>
+      <trans-unit id="label.email">
+          <source>label.email</source>
+          <target>E-mail</target>
+      </trans-unit>
+      <trans-unit id="title.note_edit">
+          <source>title.note_edit</source>
+          <target>Edit note</target>
+      </trans-unit>
+      <trans-unit id="action.back">
+          <source>action.back</source>
+          <target>Back</target>
+      </trans-unit>
+      <trans-unit id="action.save">
+          <source>action.save</source>
+          <target>Save</target>
+      </trans-unit>
+      <trans-unit id="title.note_delete">
+          <source>title.note_delete</source>
+          <target>Delete note</target>
+      </trans-unit>
+      <trans-unit id="action.delete">
+          <source>action.delete</source>
+          <target>Delete</target>
+      </trans-unit>
+      <trans-unit id="title.notes">
+          <source>title.notes</source>
+          <target>Notes</target>
+      </trans-unit>
+      <trans-unit id="action.create">
+          <source>action.create</source>
+          <target>Create</target>
+      </trans-unit>
+      <trans-unit id="label.created_at">
+          <source>label.created_at</source>
+          <target>Created</target>
+      </trans-unit>
+      <trans-unit id="action.category_filter">
+          <source>action.category_filter</source>
+          <target>Filter by category</target>
+      </trans-unit>
+      <trans-unit id="action.tags_filter">
+          <source>action.tags_filter</source>
+          <target>Filter by tag</target>
+      </trans-unit>
+      <trans-unit id="action.show">
+          <source>action.show</source>
+          <target>Show</target>
+      </trans-unit>
+      <trans-unit id="action.edit">
+          <source>action.edit</source>
+          <target>Edit</target>
+      </trans-unit>
+      <trans-unit id="label.empty">
+          <source>label.empty</source>
+          <target>Empty</target>
+      </trans-unit>
+      <trans-unit id="label.updated_at">
+          <source>label.updated_at</source>
+          <target>Edited</target>
+      </trans-unit>
+      <trans-unit id="title.note_create">
+          <source>title.note_create</source>
+          <target>Create note</target>
+      </trans-unit>
+      <trans-unit id="action.logout">
+          <source>action.logout</source>
+          <target>Log out</target>
+      </trans-unit>
+      <trans-unit id="action.edit_user">
+          <source>action.edit_user</source>
+          <target>Edit profile</target>
+      </trans-unit>
+      <trans-unit id="action.edit_user_password">
+          <source>action.edit_user_password</source>
+          <target>Change password</target>
+      </trans-unit>
+      <trans-unit id="action.notes">
+          <source>action.notes</source>
+          <target>Notes</target>
+      </trans-unit>
+      <trans-unit id="action.categories">
+          <source>action.categories</source>
+          <target>Categories</target>
+      </trans-unit>
+      <trans-unit id="action.tags">
+          <source>action.tags</source>
+          <target>Tags</target>
+      </trans-unit>
+      <trans-unit id="action.todolists">
+          <source>action.todolists</source>
+          <target>To-do lists</target>
+      </trans-unit>
+      <trans-unit id="action.manage_users">
+          <source>action.manage_users</source>
+          <target>Manage users</target>
+      </trans-unit>
+      <trans-unit id="action.login">
+          <source>action.login</source>
+          <target>Log in</target>
+      </trans-unit>
+      <trans-unit id="login">
+          <source>login</source>
+          <target>Log in</target>
+      </trans-unit>
+      <trans-unit id="action.register_user">
+          <source>action.register_user</source>
+          <target>Register</target>
+      </trans-unit>
+      <trans-unit id="title.category_edit">
+          <source>title.category_edit</source>
+          <target>Edit category</target>
+      </trans-unit>
+      <trans-unit id="title.category_delete">
+          <source>title.category_delete</source>
+          <target>Delete category</target>
+      </trans-unit>
+      <trans-unit id="title.categories">
+          <source>title.categories</source>
+          <target>Categories</target>
+      </trans-unit>
+      <trans-unit id="title.category_create">
+          <source>title.category_create</source>
+          <target>Create category</target>
+      </trans-unit>
+      <trans-unit id="title.user_register">
+          <source>title.user_register</source>
+          <target>Register</target>
+      </trans-unit>
+      <trans-unit id="message.logged_in_as">
+          <source>message.logged_in_as</source>
+          <target>Log in</target>
+      </trans-unit>
+      <trans-unit id="button_register">
+          <source>button_register</source>
+          <target>Register</target>
+      </trans-unit>
+      <trans-unit id="message.has_account">
+          <source>message.has_account</source>
+          <target>Already have an account?</target>
+      </trans-unit>
+      <trans-unit id="title.edit_user">
+          <source>title.edit_user</source>
+          <target>Edit user</target>
+      </trans-unit>
+      <trans-unit id="title.edit_password">
+          <source>title.edit_password</source>
+          <target>Change password</target>
+      </trans-unit>
+      <trans-unit id="title.users">
+          <source>title.users</source>
+          <target>Users</target>
+      </trans-unit>
+      <trans-unit id="action.edit_password">
+          <source>action.edit_password</source>
+          <target>Edit password</target>
+      </trans-unit>
+      <trans-unit id="title.todo_edit">
+          <source>title.todo_edit</source>
+          <target>Edit todo</target>
+      </trans-unit>
+      <trans-unit id="title.todo_create">
+          <source>title.todo_create</source>
+          <target>Create todo</target>
+      </trans-unit>
+      <trans-unit id="title.tag_edit">
+          <source>title.tag_edit</source>
+          <target>Edit tag</target>
+      </trans-unit>
+      <trans-unit id="title.tag_delete">
+          <source>title.tag_delete</source>
+          <target>Delete tag</target>
+      </trans-unit>
+      <trans-unit id="title.tags">
+          <source>title.tags</source>
+          <target>Tags</target>
+      </trans-unit>
+      <trans-unit id="title.tag_create">
+          <source>title.tag_create</source>
+          <target>Create tag</target>
+      </trans-unit>
+      <trans-unit id="title.todo_list_edit">
+          <source>title.todo_list_edit</source>
+          <target>Edit list of things to do</target>
+      </trans-unit>
+      <trans-unit id="title.todo_list_delete">
+          <source>title.todo_list_delete</source>
+          <target>Delete list of things to do</target>
+      </trans-unit>
+      <trans-unit id="title.todo_lists">
+          <source>title.todo_lists</source>
+          <target>To-dos list</target>
+      </trans-unit>
+      <trans-unit id="label.todos_count">
+          <source>label.todos_count</source>
+          <target>To-dos count</target>
+      </trans-unit>
+      <trans-unit id="action.edit_todo">
+          <source>action.edit_todo</source>
+          <target>Edit to-do</target>
+      </trans-unit>
+      <trans-unit id="title.todo_list_create">
+          <source>title.todo_list_create</source>
+          <target>Create to-dos list</target>
       </trans-unit>
     </body>
   </file>

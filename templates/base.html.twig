@@ -17,23 +17,23 @@
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         <div>{{ app.user.email }}</div>
         <div>
-            <a href="{{ url('app_logout') }}">{{ 'action_logout'|trans }}</a>
-            <a href="{{ url('edit_user', {id: app.user.id}) }}">{{ 'action_edit_user'|trans }}</a>
-            <a href="{{ url('user_change_password', {id: app.user.id}) }}">{{ 'action_edit_user_password'|trans }}</a>
+            <a href="{{ url('app_logout') }}">{{ 'action.logout'|trans }}</a>
+            <a href="{{ url('edit_user', {id: app.user.id}) }}">{{ 'action.edit_user'|trans }}</a>
+            <a href="{{ url('user_change_password', {id: app.user.id}) }}">{{ 'action.edit_user_password'|trans }}</a>
         </div>
         <div>
-            <a href="{{ url('note_index') }}">{{ 'action_notes'|trans }}</a>
-            <a href="{{ url('category_index') }}">{{ 'action_categories'|trans }}</a>
-            <a href="{{ url('tag_index') }}">{{ 'action_tags'|trans }}</a>
-            <a href="{{ url('todolist_index') }}">{{ 'action_todolists'|trans }}</a>
+            <a href="{{ url('note_index') }}">{{ 'action.notes'|trans }}</a>
+            <a href="{{ url('category_index') }}">{{ 'action.categories'|trans }}</a>
+            <a href="{{ url('tag_index') }}">{{ 'action.tags'|trans }}</a>
+            <a href="{{ url('todolist_index') }}">{{ 'action.todolists'|trans }}</a>
             {% if 'ROLE_ADMIN' in app.user.getRoles() %}
-                <a href="{{ url('user_index') }}">{{ 'action_manage_users'|trans }}</a>
+                <a href="{{ url('user_index') }}">{{ 'action.manage_users'|trans }}</a>
             {% endif %}
         </div>
     {% else %}
         <div>
-            <a href="{{ url('app_login') }}">{{ 'action_login'|trans }}</a>
-            <a href="{{ url('app_register') }}">{{ 'action_register_user'|trans }}</a>
+            <a href="{{ url('app_login') }}">{{ 'action.login'|trans }}</a>
+            <a href="{{ url('app_register') }}">{{ 'action.register_user'|trans }}</a>
         </div>
     {% endif %}
     {% for type, messages in app.session.flashBag.all %}
