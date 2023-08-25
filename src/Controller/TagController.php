@@ -21,16 +21,37 @@ use Symfony\Component\HttpFoundation\Response;
 #[Route('/tags')]
 class TagController extends AbstractController
 {
+    /**
+     * Tag service
+     *
+     * @var TagService
+     */
     private TagService $tagService;
 
+    /**
+     * Translator interface
+     *
+     * @var TranslatorInterface
+     */
     private TranslatorInterface $translator;
 
+    /**
+     * Constructor
+     *
+     * @param TagService $tagService
+     * @param TranslatorInterface $translator
+     */
     public function __construct(TagService $tagService, TranslatorInterface $translator)
     {
         $this->tagService = $tagService;
         $this->translator = $translator;
     }
 
+    /**
+     * Index action
+     *
+     * @return Response
+     */
     #[Route(
         name: 'tag_index',
         methods: 'GET'
@@ -45,6 +66,12 @@ class TagController extends AbstractController
         );
     }
 
+    /**
+     * Show action
+     *
+     * @param Tag $tag
+     * @return Response
+     */
     #[Route(
         '/{id}',
         name: 'tag_show',
@@ -56,6 +83,12 @@ class TagController extends AbstractController
         return $this->render('tag/show.html.twig', ['tag' => $tag]);
     }
 
+    /**
+     * Create action
+     *
+     * @param Request $request
+     * @return Response
+     */
     #[Route(
         '/create',
         name: 'tag_create',
@@ -75,6 +108,13 @@ class TagController extends AbstractController
         return $this->render('tag/create.html.twig', ['form' => $form->createView()]);
     }
 
+    /**
+     * Edit action
+     *
+     * @param Request $request
+     * @param Tag $tag
+     * @return Response
+     */
     #[Route(
         '/{id}/edit',
         name: 'tag_edit',
@@ -100,6 +140,13 @@ class TagController extends AbstractController
         );
     }
 
+    /**
+     * Delete action
+     *
+     * @param Request $request
+     * @param Tag $tag
+     * @return Response
+     */
     #[Route(
         '/{id}/delete',
         name: 'tag_delete',

@@ -1,4 +1,7 @@
 <?php
+/**
+ * User register form type
+ */
 
 namespace App\Form;
 
@@ -12,15 +15,35 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * Class UserRegisterType
+ */
 class UserRegisterType extends AbstractType
 {
+    /**
+     * Translator
+     *
+     * @var TranslatorInterface
+     */
     private TranslatorInterface $translator;
 
+    /**
+     * Constructor
+     *
+     * @param TranslatorInterface $translator
+     */
     public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;
     }
 
+    /**
+     * Build form
+     *
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder

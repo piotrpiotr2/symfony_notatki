@@ -24,16 +24,37 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/users')]
 class UserController extends AbstractController
 {
+    /**
+     * Translator interface
+     *
+     * @var TranslatorInterface
+     */
     private TranslatorInterface $translator;
 
+    /**
+     * User service
+     *
+     * @var UserService
+     */
     private UserService $userService;
 
+    /**
+     * Constructor
+     *
+     * @param UserService $userService
+     * @param TranslatorInterface $translator
+     */
     public function __construct(UserService $userService, TranslatorInterface $translator)
     {
         $this->userService = $userService;
         $this->translator = $translator;
     }
 
+    /**
+     * Index action
+     *
+     * @return Response
+     */
     #[Route(
         name: 'user_index',
         methods: 'GET'
@@ -49,6 +70,13 @@ class UserController extends AbstractController
         return $this->render('user/index.html.twig', ['users' => $users]);
     }
 
+    /**
+     * Edit action
+     *
+     * @param Request $request
+     * @param User $user
+     * @return Response
+     */
     #[Route(
         '/{id}/edit',
         name: 'edit_user',
@@ -82,6 +110,12 @@ class UserController extends AbstractController
         );
     }
 
+    /**
+     * Show action
+     *
+     * @param User $user
+     * @return Response
+     */
     #[Route(
         '/{id}',
         name: 'user_show',
@@ -97,6 +131,14 @@ class UserController extends AbstractController
         return $this->render('user/show.html.twig', ['user' => $user]);
     }
 
+    /**
+     * Change password action
+     *
+     * @param Request $request
+     * @param User $user
+     * @param UserPasswordHasherInterface $passwordHasher
+     * @return Response
+     */
     #[Route(
         '/{id}/change-password',
         name: 'user_change_password',

@@ -1,6 +1,6 @@
 <?php
 /**
- * Category service.
+ * Category service
  */
 
 namespace App\Service;
@@ -14,12 +14,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class CategoryService
 {
     /**
-     * Category repository.
+     * Category repository
      */
     private CategoryRepository $categoryRepository;
 
     /**
-     * Article repository.
+     * Article repository
      */
     private NoteRepository $noteRepository;
 
@@ -30,7 +30,7 @@ class CategoryService
     }
 
     /**
-     * Save entity.
+     * Save entity
      *
      * @param Category $category Category entity
      */
@@ -40,7 +40,7 @@ class CategoryService
     }
 
     /**
-     * Delete entity.
+     * Delete entity
      *
      * @param Category $category Category entity
      */
@@ -55,7 +55,7 @@ class CategoryService
     }
 
     /**
-     * Can Category be deleted?
+     * Can be deleted
      *
      * @param Category $category Category entity
      *
@@ -70,12 +70,24 @@ class CategoryService
         }
     }
 
+    /**
+     * Get all
+     *
+     * @param UserInterface $user
+     * @return array
+     */
     public function getAllList(UserInterface $user): array
     {
         $query = $this->categoryRepository->queryByAuthor($user)->getQuery();
         return $query->execute();
     }
 
+    /**
+     * Find one
+     *
+     * @param int $id
+     * @return Category|null
+     */
     public function findOneById(int $id): ?Category
     {
         return $this->categoryRepository->findOneById($id);

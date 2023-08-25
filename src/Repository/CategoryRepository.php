@@ -1,4 +1,7 @@
 <?php
+/**
+ * Category repository
+ */
 
 namespace App\Repository;
 
@@ -9,6 +12,8 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
+ * Class CategoryRepository
+ *
  * @extends ServiceEntityRepository<Category>
  *
  * @method Category|null find($id, $lockMode = null, $lockVersion = null)
@@ -18,17 +23,34 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class CategoryRepository extends ServiceEntityRepository
 {
+    /**
+     * Constructor
+     *
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Category::class);
     }
 
+    /**
+     * Save
+     *
+     * @param Category $category
+     * @return void
+     */
     public function save(Category $category): void
     {
         $this->_em->persist($category);
         $this->_em->flush();
     }
 
+    /**
+     * Delete
+     *
+     * @param Category $category
+     * @return void
+     */
     public function delete(Category $category): void
     {
         $this->_em->remove($category);
@@ -61,10 +83,22 @@ class CategoryRepository extends ServiceEntityRepository
             ->setParameter('author', $user);
     }
 
+    /**
+     * Get all categories
+     *
+     * @return QueryBuilder
+     */
     public function queryAll(): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder();
     }
+
+    /**
+     * Find one category
+     *
+     * @param int $id
+     * @return Category|null
+     */
     public function findOneById(int $id): ?Category
     {
         return $this->find($id);

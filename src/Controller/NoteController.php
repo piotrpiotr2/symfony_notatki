@@ -1,4 +1,7 @@
 <?php
+/**
+ * Note controller
+ */
 
 namespace App\Controller;
 
@@ -12,19 +15,44 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class NoteController
+ */
 #[Route('/notes')]
 class NoteController extends AbstractController
 {
+    /**
+     * Note service
+     *
+     * @var NoteService
+     */
     private NoteService $noteService;
 
+    /**
+     * Translator interface
+     *
+     * @var TranslatorInterface
+     */
     private TranslatorInterface $translator;
 
+    /**
+     * Constructor
+     *
+     * @param NoteService $noteService
+     * @param TranslatorInterface $translator
+     */
     public function __construct(NoteService $noteService, TranslatorInterface $translator)
     {
         $this->noteService = $noteService;
         $this->translator = $translator;
     }
 
+    /**
+     * Index action
+     *
+     * @param Request $request
+     * @return Response
+     */
     #[Route(
         name: 'note_index',
         methods: 'GET'
@@ -42,6 +70,12 @@ class NoteController extends AbstractController
         );
     }
 
+    /**
+     * Show action
+     *
+     * @param Note $note
+     * @return Response
+     */
     #[Route(
         '/{id}',
         name: 'note_show',
@@ -58,6 +92,12 @@ class NoteController extends AbstractController
         return $this->render('note/show.html.twig', [ 'note' => $note ]);
     }
 
+    /**
+     * Create action
+     *
+     * @param Request $request
+     * @return Response
+     */
     #[Route(
         '/create',
         name: 'note_create',
@@ -79,6 +119,13 @@ class NoteController extends AbstractController
         return $this->render('note/create.html.twig', ['form' => $form->createView()]);
     }
 
+    /**
+     * Edit action
+     *
+     * @param Request $request
+     * @param Note $note
+     * @return Response
+     */
     #[Route(
         '/{id}/edit',
         name: 'note_edit',
@@ -112,6 +159,13 @@ class NoteController extends AbstractController
         );
     }
 
+    /**
+     * Delete action
+     *
+     * @param Request $request
+     * @param Note $note
+     * @return Response
+     */
     #[Route('/{id}/delete', name: 'note_delete', requirements: ['id' => '[1-9]\d*'], methods: 'GET|DELETE')]
     public function delete(Request $request, Note $note): Response
     {
@@ -139,6 +193,12 @@ class NoteController extends AbstractController
         );
     }
 
+    /**
+     * Filters action
+     *
+     * @param Request $request
+     * @return array
+     */
     private function filters(Request $request): array
     {
         return [

@@ -1,8 +1,10 @@
 <?php
+/**
+ * Todo list repository
+ */
 
 namespace App\Repository;
 
-use App\Entity\Tag;
 use App\Entity\TodoList;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -10,6 +12,8 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
+ * Class TodoListRepository
+ *
  * @extends ServiceEntityRepository<TodoList>
  *
  * @method TodoList|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,25 +23,51 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class TodoListRepository extends ServiceEntityRepository
 {
+    /**
+     * Items per page
+     */
     public const PAGINATOR_ITEMS_PER_PAGE = 10;
 
+    /**
+     * Save todo list
+     *
+     * @param TodoList $todoList
+     * @return void
+     */
     public function save(TodoList $todoList): void
     {
         $this->_em->persist($todoList);
         $this->_em->flush();
     }
 
+    /**
+     * Delete
+     *
+     * @param TodoList $todoList
+     * @return void
+     */
     public function delete(TodoList $todoList): void
     {
         $this->_em->remove($todoList);
         $this->_em->flush();
     }
 
+    /**
+     * Constructor
+     *
+     * @param ManagerRegistry $registry\
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, TodoList::class);
     }
 
+    /**
+     * Get or create query builder
+     *
+     * @param QueryBuilder|null $queryBuilder
+     * @return QueryBuilder
+     */
     private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
     {
         return $queryBuilder ?? $this->createQueryBuilder('todo_list');
@@ -57,6 +87,11 @@ class TodoListRepository extends ServiceEntityRepository
             ->setParameter('author', $user);
     }
 
+    /**
+     * Get all todo lists
+     *
+     * @return QueryBuilder
+     */
     public function queryAll(): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder();

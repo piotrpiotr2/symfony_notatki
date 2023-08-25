@@ -1,4 +1,7 @@
 <?php
+/**
+ * Note entity
+ */
 
 namespace App\Entity;
 
@@ -11,17 +14,35 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Class Note
+ */
 #[ORM\Entity(repositoryClass: NoteRepository::class)]
 class Note
 {
+    /**
+     * Primary key
+     *
+     * @var int|null
+     */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    /**
+     * Title
+     *
+     * @var string|null
+     */
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
+    /**
+     * Content
+     *
+     * @var string|null
+     */
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
 
@@ -45,32 +66,66 @@ class Note
     #[Assert\Type(DateTimeImmutable::class)]
     private ?DateTimeImmutable $updatedAt;
 
+    /**
+     * Tags
+     *
+     * @var Collection|ArrayCollection
+     */
     #[ORM\ManyToMany(targetEntity: Tag::class)]
     private Collection $tags;
 
+    /**
+     * Category
+     *
+     * @var Category|null
+     */
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 
+    /**
+     * Author
+     *
+     * @var User|null
+     */
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $author = null;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->tags = new ArrayCollection();
     }
 
+    /**
+     * Get id
+     *
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * Get title
+     *
+     * @return string|null
+     */
     public function getTitle(): ?string
     {
         return $this->title;
     }
 
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return $this
+     */
     public function setTitle(string $title): static
     {
         $this->title = $title;
@@ -78,11 +133,22 @@ class Note
         return $this;
     }
 
+    /**
+     * Get content
+     *
+     * @return string|null
+     */
     public function getContent(): ?string
     {
         return $this->content;
     }
 
+    /**
+     * Set content
+     *
+     * @param string $content
+     * @return $this
+     */
     public function setContent(string $content): static
     {
         $this->content = $content;
@@ -91,6 +157,8 @@ class Note
     }
 
     /**
+     * Get tags
+     *
      * @return Collection<int, Tag>
      */
     public function getTags(): Collection
@@ -98,6 +166,12 @@ class Note
         return $this->tags;
     }
 
+    /**
+     * Add tag
+     *
+     * @param Tag $tag
+     * @return $this
+     */
     public function addTag(Tag $tag): static
     {
         if (!$this->tags->contains($tag)) {
@@ -107,6 +181,12 @@ class Note
         return $this;
     }
 
+    /**
+     * Remove tag
+     *
+     * @param Tag $tag
+     * @return $this
+     */
     public function removeTag(Tag $tag): static
     {
         $this->tags->removeElement($tag);
@@ -114,11 +194,22 @@ class Note
         return $this;
     }
 
+    /**
+     * Get category
+     *
+     * @return Category|null
+     */
     public function getCategory(): ?Category
     {
         return $this->category;
     }
 
+    /**
+     * Set category
+     *
+     * @param Category|null $category
+     * @return $this
+     */
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
@@ -127,7 +218,7 @@ class Note
     }
 
     /**
-     * Getter for created at.
+     * Get created at.
      *
      * @return DateTimeImmutable|null Created at
      */
@@ -137,7 +228,7 @@ class Note
     }
 
     /**
-     * Setter for created at.
+     * Set created at.
      *
      * @param DateTimeImmutable|null $createdAt Created at
      */
@@ -147,7 +238,7 @@ class Note
     }
 
     /**
-     * Getter for updated at.
+     * Get updated at.
      *
      * @return DateTimeImmutable|null Updated at
      */
@@ -157,7 +248,7 @@ class Note
     }
 
     /**
-     * Setter for updated at.
+     * Set updated at.
      *
      * @param DateTimeImmutable|null $updatedAt Updated at
      */
@@ -166,11 +257,22 @@ class Note
         $this->updatedAt = $updatedAt;
     }
 
+    /**
+     * Get author
+     *
+     * @return User|null
+     */
     public function getAuthor(): ?User
     {
         return $this->author;
     }
 
+    /**
+     * Set author
+     *
+     * @param User|null $author
+     * @return $this
+     */
     public function setAuthor(?User $author): static
     {
         $this->author = $author;

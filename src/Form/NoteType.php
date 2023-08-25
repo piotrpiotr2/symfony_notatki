@@ -1,4 +1,7 @@
 <?php
+/**
+ * Note type
+ */
 
 namespace App\Form;
 
@@ -6,7 +9,6 @@ use App\Entity\Tag;
 use App\Entity\Note;
 use App\Entity\Category;
 use App\Repository\CategoryRepository;
-use App\Repository\TagRepository;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,12 +19,31 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * Class NoteType
+ */
 class NoteType extends AbstractType
 {
+    /**
+     * Translator
+     *
+     * @var TranslatorInterface
+     */
     private TranslatorInterface $translator;
 
-    private UserInterface $user;
+    /**
+     * User
+     *
+     * @var UserInterface|null
+     */
+    private ?UserInterface $user;
 
+    /**
+     * Constructor
+     *
+     * @param TranslatorInterface $translator
+     * @param Security $security
+     */
     public function __construct(TranslatorInterface $translator, Security $security)
     {
         $this->user = $security->getUser();

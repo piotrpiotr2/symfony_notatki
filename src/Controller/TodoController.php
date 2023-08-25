@@ -1,11 +1,13 @@
 <?php
+/**
+ * Todo Controller
+ */
 
 namespace App\Controller;
 
 use App\Entity\Todo;
 use App\Entity\TodoList;
 use App\Form\TodoType;
-use App\Form\TodoListType;
 use App\Service\TodoService;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,19 +15,45 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class TodoController
+ */
 #[Route('/todos')]
 class TodoController extends AbstractController
 {
+    /**
+     * Todo service
+     *
+     * @var TodoService
+     */
     private TodoService $todoService;
 
+    /**
+     * Translator interface
+     *
+     * @var TranslatorInterface
+     */
     private TranslatorInterface $translator;
 
+    /**
+     * Constructor
+     *
+     * @param TodoService $todoService
+     * @param TranslatorInterface $translator
+     */
     public function __construct(TodoService $todoService, TranslatorInterface $translator)
     {
         $this->todoService = $todoService;
         $this->translator = $translator;
     }
 
+    /**
+     * Create action
+     *
+     * @param Request $request
+     * @param TodoList $todoList
+     * @return Response
+     */
     #[Route(
         '/create/{id}',
         name: 'todo_create',
@@ -46,6 +74,13 @@ class TodoController extends AbstractController
         return $this->render('todo/create.html.twig', ['form' => $form->createView()]);
     }
 
+    /**
+     * Edit action
+     *
+     * @param Request $request
+     * @param Todo $todo
+     * @return Response
+     */
     #[Route(
         '/{id}/edit',
         name: 'todo_edit',

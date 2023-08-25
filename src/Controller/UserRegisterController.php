@@ -1,4 +1,7 @@
 <?php
+/**
+ * UserRegister Controller
+ */
 
 namespace App\Controller;
 
@@ -14,16 +17,47 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Entity\User;
 use App\Security\LoginFormAuthenticator;
 
+/**
+ * Class UserRegisterController
+ */
 class UserRegisterController extends AbstractController
 {
+    /**
+     * User service
+     *
+     * @var UserService
+     */
     private UserService $service;
 
+    /**
+     * User password hasher interface
+     *
+     * @var UserPasswordHasherInterface
+     */
     private UserPasswordHasherInterface $passwordHasher;
 
+    /**
+     * User authenticator interface
+     *
+     * @var UserAuthenticatorInterface
+     */
     private UserAuthenticatorInterface $userAuthenticator;
 
+    /**
+     * Login form authenticator interface
+     *
+     * @var LoginFormAuthenticator
+     */
     private LoginFormAuthenticator $authenticator;
 
+    /**
+     * Constructor
+     *
+     * @param UserService $service
+     * @param UserPasswordHasherInterface $passwordHasher
+     * @param UserAuthenticatorInterface $userAuthenticator
+     * @param LoginFormAuthenticator $authenticator
+     */
     public function __construct(UserService $service, UserPasswordHasherInterface $passwordHasher, UserAuthenticatorInterface $userAuthenticator, LoginFormAuthenticator $authenticator)
     {
         $this->service = $service;
@@ -32,6 +66,12 @@ class UserRegisterController extends AbstractController
         $this->authenticator = $authenticator;
     }
 
+    /**
+     * Register
+     *
+     * @param Request $request
+     * @return Response
+     */
     #[Route(
         '/register',
         name: 'app_register',

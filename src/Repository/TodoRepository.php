@@ -1,4 +1,7 @@
 <?php
+/**
+ * Todo repository
+ */
 
 namespace App\Repository;
 
@@ -7,6 +10,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
+ * Class TodoRepository
+ *
  * @extends ServiceEntityRepository<Todo>
  *
  * @method Todo|null find($id, $lockMode = null, $lockVersion = null)
@@ -16,47 +21,42 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class TodoRepository extends ServiceEntityRepository
 {
+    /**
+     * Items per page
+     */
     public const PAGINATOR_ITEMS_PER_PAGE = 10;
 
+    /**
+     * Save
+     *
+     * @param Todo $todo
+     * @return void
+     */
     public function save(Todo $todo): void
     {
         $this->_em->persist($todo);
         $this->_em->flush();
     }
 
+    /**
+     * Delete
+     *
+     * @param Todo $todo
+     * @return void
+     */
     public function delete(Todo $todo): void
     {
         $this->_em->remove($todo);
         $this->_em->flush();
     }
 
+    /**
+     * Constructor
+     *
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Todo::class);
     }
-
-//    /**
-//     * @return Todo[] Returns an array of Todo objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('t.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Todo
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }

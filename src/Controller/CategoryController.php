@@ -1,4 +1,7 @@
 <?php
+/**
+ * Category controller
+ */
 
 namespace App\Controller;
 
@@ -12,19 +15,43 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class CategoryController
+ */
 #[Route('/categories')]
 class CategoryController extends AbstractController
 {
+    /**
+     * Category service
+     *
+     * @var CategoryService
+     */
     private CategoryService $categoryService;
 
+    /**
+     * Translator interface
+     *
+     * @var TranslatorInterface
+     */
     private TranslatorInterface $translator;
 
+    /**
+     * Constructor
+     *
+     * @param CategoryService $categoryService
+     * @param TranslatorInterface $translator
+     */
     public function __construct(CategoryService $categoryService, TranslatorInterface $translator)
     {
         $this->categoryService = $categoryService;
         $this->translator = $translator;
     }
 
+    /**
+     * Index action
+     *
+     * @return Response
+     */
     #[Route(
         name: 'category_index',
         methods: 'GET'
@@ -39,6 +66,12 @@ class CategoryController extends AbstractController
         );
     }
 
+    /**
+     * Show action
+     *
+     * @param Category $category
+     * @return Response
+     */
     #[Route(
         '/{id}',
         name: 'category_show',
@@ -55,6 +88,12 @@ class CategoryController extends AbstractController
         return $this->render('category/show.html.twig', [ 'category' => $category ]);
     }
 
+    /**
+     * Create action
+     *
+     * @param Request $request
+     * @return Response
+     */
     #[Route(
         '/create',
         name: 'category_create',
@@ -76,6 +115,13 @@ class CategoryController extends AbstractController
         return $this->render('category/create.html.twig', ['form' => $form->createView()]);
     }
 
+    /**
+     * Edit action
+     *
+     * @param Request $request
+     * @param Category $category
+     * @return Response
+     */
     #[Route(
         '/{id}/edit',
         name: 'category_edit',
@@ -108,6 +154,13 @@ class CategoryController extends AbstractController
         );
     }
 
+    /**
+     * Delete action
+     *
+     * @param Category $category
+     * @param Request $request
+     * @return Response
+     */
     #[Route('/{id}/delete', name: 'category_delete', methods: 'GET|DELETE')]
     public function delete(Category $category, Request $request): Response
     {

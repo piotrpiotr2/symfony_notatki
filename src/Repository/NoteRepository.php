@@ -1,11 +1,13 @@
 <?php
+/**
+ * Note repository
+ */
 
 namespace App\Repository;
 
 use App\Entity\Category;
 use App\Entity\Note;
 use App\Entity\Tag;
-use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -14,6 +16,8 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
+ * Class NoteRepository
+ *
  * @extends ServiceEntityRepository<Note>
  *
  * @method Note|null find($id, $lockMode = null, $lockVersion = null)
@@ -23,19 +27,39 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class NoteRepository extends ServiceEntityRepository
 {
+    /**
+     * Items per page
+     */
     public const PAGINATOR_ITEMS_PER_PAGE = 10;
 
+    /**
+     * Constructor
+     *
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Note::class);
     }
 
+    /**
+     * Save
+     *
+     * @param Note $note
+     * @return void
+     */
     public function save(Note $note): void
     {
         $this->_em->persist($note);
         $this->_em->flush();
     }
 
+    /**
+     * Delete
+     *
+     * @param Note $note
+     * @return void
+     */
     public function delete(Note $note): void
     {
         $this->_em->remove($note);
@@ -88,6 +112,12 @@ class NoteRepository extends ServiceEntityRepository
         return $queryBuilder;
     }
 
+    /**
+     * Get all notes
+     *
+     * @param array $filters
+     * @return QueryBuilder
+     */
     public function queryAll(array $filters): QueryBuilder
     {
         $result = $this
@@ -104,6 +134,13 @@ class NoteRepository extends ServiceEntityRepository
         return $this->filter($result, $filters);
     }
 
+    /**
+     * Filter
+     *
+     * @param QueryBuilder $queryBuilder
+     * @param array $filters
+     * @return QueryBuilder
+     */
     private function filter(QueryBuilder $queryBuilder, array $filters = []): QueryBuilder
     {
         if (isset($filters['category']) && $filters['category'] instanceof Category) {

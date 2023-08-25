@@ -1,4 +1,7 @@
 <?php
+/**
+ * Edit user password form type
+ */
 
 namespace App\Form;
 
@@ -12,15 +15,35 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
+/**
+ * Class EditUserPasswordType
+ */
 class EditUserPasswordType extends AbstractType
 {
+    /**
+     * Translator
+     *
+     * @var TranslatorInterface
+     */
     private TranslatorInterface $translator;
 
+    /**
+     * Constructor
+     *
+     * @param TranslatorInterface $translator
+     */
     public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;
     }
 
+    /**
+     * Build form
+     *
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -42,6 +65,12 @@ class EditUserPasswordType extends AbstractType
             ]);
     }
 
+    /**
+     * Configure options
+     *
+     * @param OptionsResolver $resolver
+     * @return void
+     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -49,6 +78,11 @@ class EditUserPasswordType extends AbstractType
         ]);
     }
 
+    /**
+     * Get block prefix
+     *
+     * @return string
+     */
     public function getBlockPrefix(): string
     {
         return 'edit_user_password';

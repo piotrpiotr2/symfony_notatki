@@ -1,4 +1,7 @@
 <?php
+/**
+ * Todo list form type
+ */
 
 namespace App\Form;
 
@@ -9,6 +12,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * Class TodoListType
+ */
 class TodoListType extends AbstractType
 {
     /**

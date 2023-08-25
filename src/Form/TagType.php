@@ -1,4 +1,7 @@
 <?php
+/**
+ * Tag form type
+ */
 
 namespace App\Form;
 
@@ -9,10 +12,23 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * Class TagType
+ */
 class TagType extends AbstractType
 {
+    /**
+     * Translator
+     *
+     * @var TranslatorInterface
+     */
     private TranslatorInterface $translator;
 
+    /**
+     * Constructor
+     *
+     * @param TranslatorInterface $translator
+     */
     public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;

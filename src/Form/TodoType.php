@@ -1,4 +1,7 @@
 <?php
+/**
+ * Todo form type
+ */
 
 namespace App\Form;
 
@@ -10,6 +13,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * Class TodoType
+ */
 class TodoType extends AbstractType
 {
     /**
@@ -19,6 +25,11 @@ class TodoType extends AbstractType
      */
     private TranslatorInterface $translator;
 
+    /**
+     * Constructor
+     *
+     * @param TranslatorInterface $translator
+     */
     public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;

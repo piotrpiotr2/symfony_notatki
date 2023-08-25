@@ -1,9 +1,11 @@
 <?php
+/**
+ * TodoList Controller
+ */
 
 namespace App\Controller;
 
 use App\Entity\TodoList;
-use App\Form\TodoType;
 use App\Service\TodoListService;
 use App\Form\TodoListType;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -13,19 +15,43 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class TodoListController
+ */
 #[Route('/todo-lists')]
 class TodoListController extends AbstractController
 {
+    /**
+     * Todo list service
+     *
+     * @var TodoListService
+     */
     private TodoListService $todoListService;
 
+    /**
+     * Translator interface
+     *
+     * @var TranslatorInterface
+     */
     private TranslatorInterface $translator;
 
+    /**
+     * Constructor
+     *
+     * @param TodoListService $todoListService
+     * @param TranslatorInterface $translator
+     */
     public function __construct(TodoListService $todoListService, TranslatorInterface $translator)
     {
         $this->todoListService = $todoListService;
         $this->translator = $translator;
     }
 
+    /**
+     * Index action
+     *
+     * @return Response
+     */
     #[Route(
         name: 'todolist_index',
         methods: 'GET'
@@ -40,6 +66,12 @@ class TodoListController extends AbstractController
         );
     }
 
+    /**
+     * Show action
+     *
+     * @param TodoList $todoList
+     * @return Response
+     */
     #[Route(
         '/{id}',
         name: 'todolist_show',
@@ -55,6 +87,12 @@ class TodoListController extends AbstractController
         return $this->render('todo_lists/show.html.twig', [ 'todoList' => $todoList ]);
     }
 
+    /**
+     * Create action
+     *
+     * @param Request $request
+     * @return Response
+     */
     #[Route(
         '/create',
         name: 'todolist_create',
@@ -75,6 +113,13 @@ class TodoListController extends AbstractController
         return $this->render('todo_lists/create.html.twig', ['form' => $form->createView()]);
     }
 
+    /**
+     * Edit action
+     *
+     * @param Request $request
+     * @param TodoList $todoList
+     * @return Response
+     */
     #[Route(
         '/{id}/edit',
         name: 'todolist_edit',
@@ -106,6 +151,13 @@ class TodoListController extends AbstractController
         );
     }
 
+    /**
+     * Delete action
+     *
+     * @param Request $request
+     * @param TodoList $todoList
+     * @return Response
+     */
     #[Route('/{id}/delete', name: 'todolist_delete', requirements: ['id' => '[1-9]\d*'], methods: 'GET|DELETE')]
     public function delete(Request $request, TodoList $todoList): Response
     {

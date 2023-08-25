@@ -1,4 +1,7 @@
 <?php
+/**
+ * Tag repository
+ */
 
 namespace App\Repository;
 
@@ -9,6 +12,8 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
+ * Class TagRepository
+ *
  * @extends ServiceEntityRepository<Tag>
  *s
  * @method Tag|null find($id, $lockMode = null, $lockVersion = null)
@@ -18,20 +23,40 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class TagRepository extends ServiceEntityRepository
 {
+    /**
+     * Items per page
+     */
     public const PAGINATOR_ITEMS_PER_PAGE = 10;
 
+    /**
+     * Save
+     *
+     * @param Tag $tag
+     * @return void
+     */
     public function save(Tag $tag): void
     {
         $this->_em->persist($tag);
         $this->_em->flush();
     }
 
+    /**
+     * Delete tag
+     *
+     * @param Tag $tag
+     * @return void
+     */
     public function delete(Tag $tag): void
     {
         $this->_em->remove($tag);
         $this->_em->flush();
     }
 
+    /**
+     * Constructor
+     *
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Tag::class);
@@ -61,6 +86,13 @@ class TagRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    /**
+     * Find one tag
+     *
+     * @param int $id
+     * @return Tag|null
+     */
     public function findOneById(int $id): ?Tag
     {
         return $this->find($id);
