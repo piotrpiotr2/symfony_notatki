@@ -1,6 +1,6 @@
 <?php
 /**
- * Todo list repository
+ * Todo list repository.
  */
 
 namespace App\Repository;
@@ -12,7 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * Class TodoListRepository
+ * Class TodoListRepository.
  *
  * @extends ServiceEntityRepository<TodoList>
  *
@@ -24,15 +24,14 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class TodoListRepository extends ServiceEntityRepository
 {
     /**
-     * Items per page
+     * Items per page.
      */
     public const PAGINATOR_ITEMS_PER_PAGE = 10;
 
     /**
-     * Save todo list
+     * Save todo list.
      *
      * @param TodoList $todoList
-     * @return void
      */
     public function save(TodoList $todoList): void
     {
@@ -44,7 +43,6 @@ class TodoListRepository extends ServiceEntityRepository
      * Delete
      *
      * @param TodoList $todoList
-     * @return void
      */
     public function delete(TodoList $todoList): void
     {
@@ -55,7 +53,7 @@ class TodoListRepository extends ServiceEntityRepository
     /**
      * Constructor
      *
-     * @param ManagerRegistry $registry\
+     * @param ManagerRegistry $registry
      */
     public function __construct(ManagerRegistry $registry)
     {
@@ -66,6 +64,7 @@ class TodoListRepository extends ServiceEntityRepository
      * Get or create query builder
      *
      * @param QueryBuilder|null $queryBuilder
+     *
      * @return QueryBuilder
      */
     private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
@@ -74,9 +73,10 @@ class TodoListRepository extends ServiceEntityRepository
     }
 
     /**
-     * Query notes by author.
+     * Query todo lists by author
      *
      * @param UserInterface $user User entity
+     *
      * @return QueryBuilder Query builder
      */
     public function queryByAuthor(UserInterface $user): QueryBuilder
@@ -88,7 +88,7 @@ class TodoListRepository extends ServiceEntityRepository
     }
 
     /**
-     * Get all todo lists
+     * Get all todo lists.
      *
      * @return QueryBuilder
      */
@@ -96,29 +96,4 @@ class TodoListRepository extends ServiceEntityRepository
     {
         return $this->getOrCreateQueryBuilder();
     }
-
-//    /**
-//     * @return TodoList[] Returns an array of TodoList objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('t.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?TodoList
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }

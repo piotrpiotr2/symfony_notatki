@@ -1,6 +1,6 @@
 <?php
 /**
- * Note entity
+ * Note entity.
  */
 
 namespace App\Entity;
@@ -15,15 +15,13 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Note
+ * Class Note.
  */
 #[ORM\Entity(repositoryClass: NoteRepository::class)]
 class Note
 {
     /**
-     * Primary key
-     *
-     * @var int|null
+     * Primary key.
      */
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -31,17 +29,13 @@ class Note
     private ?int $id = null;
 
     /**
-     * Title
-     *
-     * @var string|null
+     * Title.
      */
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
     /**
-     * Content
-     *
-     * @var string|null
+     * Content.
      */
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
@@ -53,8 +47,8 @@ class Note
      */
     #[ORM\Column(type: 'datetime_immutable')]
     #[Gedmo\Timestampable(on: 'create')]
-    #[Assert\Type(DateTimeImmutable::class)]
-    private ?DateTimeImmutable $createdAt;
+    #[Assert\Type(\DateTimeImmutable::class)]
+    private ?\DateTimeImmutable $createdAt;
 
     /**
      * Updated at.
@@ -63,11 +57,11 @@ class Note
      */
     #[ORM\Column(type: 'datetime_immutable')]
     #[Gedmo\Timestampable(on: 'update')]
-    #[Assert\Type(DateTimeImmutable::class)]
-    private ?DateTimeImmutable $updatedAt;
+    #[Assert\Type(\DateTimeImmutable::class)]
+    private ?\DateTimeImmutable $updatedAt;
 
     /**
-     * Tags
+     * Tags.
      *
      * @var Collection|ArrayCollection
      */
@@ -75,25 +69,21 @@ class Note
     private Collection $tags;
 
     /**
-     * Category
-     *
-     * @var Category|null
+     * Category.
      */
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 
     /**
-     * Author
-     *
-     * @var User|null
+     * Author.
      */
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $author = null;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -101,7 +91,7 @@ class Note
     }
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int|null
      */
@@ -111,7 +101,7 @@ class Note
     }
 
     /**
-     * Get title
+     * Get title.
      *
      * @return string|null
      */
@@ -121,9 +111,10 @@ class Note
     }
 
     /**
-     * Set title
+     * Set title.
      *
      * @param string $title
+     *
      * @return $this
      */
     public function setTitle(string $title): static
@@ -134,7 +125,7 @@ class Note
     }
 
     /**
-     * Get content
+     * Get content.
      *
      * @return string|null
      */
@@ -144,9 +135,10 @@ class Note
     }
 
     /**
-     * Set content
+     * Set content.
      *
      * @param string $content
+     *
      * @return $this
      */
     public function setContent(string $content): static
@@ -157,7 +149,7 @@ class Note
     }
 
     /**
-     * Get tags
+     * Get tags.
      *
      * @return Collection<int, Tag>
      */
@@ -167,9 +159,10 @@ class Note
     }
 
     /**
-     * Add tag
+     * Add tag.
      *
      * @param Tag $tag
+     *
      * @return $this
      */
     public function addTag(Tag $tag): static
@@ -182,9 +175,10 @@ class Note
     }
 
     /**
-     * Remove tag
+     * Remove tag.
      *
      * @param Tag $tag
+     *
      * @return $this
      */
     public function removeTag(Tag $tag): static
@@ -195,7 +189,7 @@ class Note
     }
 
     /**
-     * Get category
+     * Get category.
      *
      * @return Category|null
      */
@@ -205,9 +199,10 @@ class Note
     }
 
     /**
-     * Set category
+     * Set category.
      *
      * @param Category|null $category
+     *
      * @return $this
      */
     public function setCategory(?Category $category): static
@@ -220,9 +215,9 @@ class Note
     /**
      * Get created at.
      *
-     * @return DateTimeImmutable|null Created at
+     * @return \DateTimeImmutable|null Created at
      */
-    public function getCreatedAt(): ?DateTimeImmutable
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
     }
@@ -230,9 +225,9 @@ class Note
     /**
      * Set created at.
      *
-     * @param DateTimeImmutable|null $createdAt Created at
+     * @param \DateTimeImmutable|null $createdAt Created at
      */
-    public function setCreatedAt(?DateTimeImmutable $createdAt): void
+    public function setCreatedAt(?\DateTimeImmutable $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
@@ -240,9 +235,9 @@ class Note
     /**
      * Get updated at.
      *
-     * @return DateTimeImmutable|null Updated at
+     * @return \DateTimeImmutable|null Updated at
      */
-    public function getUpdatedAt(): ?DateTimeImmutable
+    public function getUpdatedAt(): ?\DateTimeImmutable
     {
         return $this->updatedAt;
     }
@@ -250,15 +245,15 @@ class Note
     /**
      * Set updated at.
      *
-     * @param DateTimeImmutable|null $updatedAt Updated at
+     * @param \DateTimeImmutable|null $updatedAt Updated at
      */
-    public function setUpdatedAt(?DateTimeImmutable $updatedAt): void
+    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
     }
 
     /**
-     * Get author
+     * Get author.
      *
      * @return User|null
      */
@@ -268,9 +263,10 @@ class Note
     }
 
     /**
-     * Set author
+     * Set author.
      *
      * @param User|null $author
+     *
      * @return $this
      */
     public function setAuthor(?User $author): static

@@ -1,6 +1,6 @@
 <?php
 /**
- * Category service
+ * Category service.
  */
 
 namespace App\Service;
@@ -8,21 +8,29 @@ namespace App\Service;
 use App\Entity\Category;
 use App\Repository\NoteRepository;
 use App\Repository\CategoryRepository;
-use Exception;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * Class CategoryService
+ */
 class CategoryService
 {
     /**
-     * Category repository
+     * Category repository.
      */
     private CategoryRepository $categoryRepository;
 
     /**
-     * Article repository
+     * Article repository.
      */
     private NoteRepository $noteRepository;
 
+    /**
+     * Constructor
+     *
+     * @param CategoryRepository $categoryRepository
+     * @param NoteRepository     $noteRepository
+     */
     public function __construct(CategoryRepository $categoryRepository, NoteRepository $noteRepository)
     {
         $this->categoryRepository = $categoryRepository;
@@ -30,7 +38,7 @@ class CategoryService
     }
 
     /**
-     * Save entity
+     * Save entity.
      *
      * @param Category $category Category entity
      */
@@ -40,9 +48,11 @@ class CategoryService
     }
 
     /**
-     * Delete entity
+     * Delete entity.
      *
      * @param Category $category Category entity
+     *
+     * @return bool
      */
     public function delete(Category $category): bool
     {
@@ -51,11 +61,12 @@ class CategoryService
         }
 
         $this->categoryRepository->delete($category);
+
         return true;
     }
 
     /**
-     * Can be deleted
+     * Can be deleted.
      *
      * @param Category $category Category entity
      *
@@ -65,7 +76,7 @@ class CategoryService
     {
         try {
             return !($this->noteRepository->countByCategory($category) > 0);
-        } catch (Exception) {
+        } catch (\Exception) {
             return false;
         }
     }
@@ -74,11 +85,13 @@ class CategoryService
      * Get all
      *
      * @param UserInterface $user
+     *
      * @return array
      */
     public function getAllList(UserInterface $user): array
     {
         $query = $this->categoryRepository->queryByAuthor($user)->getQuery();
+
         return $query->execute();
     }
 
@@ -86,6 +99,7 @@ class CategoryService
      * Find one
      *
      * @param int $id
+     *
      * @return Category|null
      */
     public function findOneById(int $id): ?Category

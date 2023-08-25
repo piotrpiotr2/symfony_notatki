@@ -1,6 +1,6 @@
 <?php
 /**
- * Tag form type
+ * Tag form type.
  */
 
 namespace App\Form;
@@ -13,19 +13,17 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * Class TagType
+ * Class TagType.
  */
 class TagType extends AbstractType
 {
     /**
-     * Translator
-     *
-     * @var TranslatorInterface
+     * Translator.
      */
     private TranslatorInterface $translator;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param TranslatorInterface $translator
      */
@@ -49,7 +47,9 @@ class TagType extends AbstractType
     {
         $builder
             ->add(
-                'name', TextType::class, [
+                'name',
+                TextType::class,
+                [
                     'label' => $this->translator->trans('label.name'),
                     'attr' => ['max_length' => 50],
                     'required' => true,

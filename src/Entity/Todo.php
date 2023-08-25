@@ -1,6 +1,6 @@
 <?php
 /**
- * Todo entity
+ * Todo entity.
  */
 
 namespace App\Entity;
@@ -11,15 +11,13 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Todo
+ * Class Todo.
  */
 #[ORM\Entity(repositoryClass: TodoRepository::class)]
 class Todo
 {
     /**
-     * Primary key
-     *
-     * @var int|null
+     * Primary key.
      */
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -27,9 +25,7 @@ class Todo
     private ?int $id = null;
 
     /**
-     * Name
-     *
-     * @var string|null
+     * Name.
      */
     #[ORM\Column(length: 255)]
     #[Assert\Type('string')]
@@ -37,9 +33,7 @@ class Todo
     private ?string $name = null;
 
     /**
-     * Description
-     *
-     * @var string|null
+     * Description.
      */
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\Type('string')]
@@ -47,24 +41,20 @@ class Todo
     private ?string $description = null;
 
     /**
-     * Todo list
-     *
-     * @var TodoList|null
+     * Todo list.
      */
     #[ORM\ManyToOne(inversedBy: 'todos')]
     #[ORM\JoinColumn(nullable: false)]
     private ?TodoList $todoList = null;
 
     /**
-     * Done
-     *
-     * @var bool|null
+     * Done.
      */
     #[ORM\Column]
     private ?bool $done = null;
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int|null
      */
@@ -74,7 +64,7 @@ class Todo
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string|null
      */
@@ -84,9 +74,10 @@ class Todo
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return $this
      */
     public function setName(string $name): static
@@ -97,7 +88,7 @@ class Todo
     }
 
     /**
-     * Get description
+     * Get description.
      *
      * @return string|null
      */
@@ -107,9 +98,10 @@ class Todo
     }
 
     /**
-     * Set description
+     * Set description.
      *
      * @param string $description
+     *
      * @return $this
      */
     public function setDescription(string $description): static
@@ -120,7 +112,7 @@ class Todo
     }
 
     /**
-     * Get todo list
+     * Get todo list.
      *
      * @return TodoList|null
      */
@@ -130,9 +122,10 @@ class Todo
     }
 
     /**
-     * Set todo list
+     * Set todo list.
      *
      * @param TodoList|null $todoList
+     *
      * @return $this
      */
     public function setTodoList(?TodoList $todoList): static
@@ -143,7 +136,7 @@ class Todo
     }
 
     /**
-     * Is done
+     * Is done.
      *
      * @return bool|null
      */
@@ -153,9 +146,10 @@ class Todo
     }
 
     /**
-     * Set done
+     * Set done.
      *
      * @param bool $done
+     *
      * @return $this
      */
     public function setDone(bool $done): static

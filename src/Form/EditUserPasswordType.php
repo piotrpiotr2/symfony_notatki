@@ -1,6 +1,6 @@
 <?php
 /**
- * Edit user password form type
+ * Edit user password form type.
  */
 
 namespace App\Form;
@@ -16,19 +16,17 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 /**
- * Class EditUserPasswordType
+ * Class EditUserPasswordType.
  */
 class EditUserPasswordType extends AbstractType
 {
     /**
-     * Translator
-     *
-     * @var TranslatorInterface
+     * Translator.
      */
     private TranslatorInterface $translator;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param TranslatorInterface $translator
      */
@@ -38,11 +36,10 @@ class EditUserPasswordType extends AbstractType
     }
 
     /**
-     * Build form
+     * Build form.
      *
      * @param FormBuilderInterface $builder
-     * @param array $options
-     * @return void
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -66,10 +63,9 @@ class EditUserPasswordType extends AbstractType
     }
 
     /**
-     * Configure options
+     * Configure options.
      *
      * @param OptionsResolver $resolver
-     * @return void
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
@@ -79,7 +75,7 @@ class EditUserPasswordType extends AbstractType
     }
 
     /**
-     * Get block prefix
+     * Get block prefix.
      *
      * @return string
      */

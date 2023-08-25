@@ -11,7 +11,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 /**
  * Class TodoListFixtures.
  */
-class TodoListFixtures extends AbstractBaseFixtures  implements DependentFixtureInterface
+class TodoListFixtures extends AbstractBaseFixtures implements DependentFixtureInterface
 {
     /**
      * Load data.

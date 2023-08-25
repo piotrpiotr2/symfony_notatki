@@ -1,6 +1,6 @@
 <?php
 /**
- * TodoList Controller
+ * TodoList Controller.
  */
 
 namespace App\Controller;
@@ -16,29 +16,25 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class TodoListController
+ * Class TodoListController.
  */
 #[Route('/todo-lists')]
 class TodoListController extends AbstractController
 {
     /**
-     * Todo list service
-     *
-     * @var TodoListService
+     * Todo list service.
      */
     private TodoListService $todoListService;
 
     /**
-     * Translator interface
-     *
-     * @var TranslatorInterface
+     * Translator interface.
      */
     private TranslatorInterface $translator;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param TodoListService $todoListService
+     * @param TodoListService     $todoListService
      * @param TranslatorInterface $translator
      */
     public function __construct(TodoListService $todoListService, TranslatorInterface $translator)
@@ -48,7 +44,7 @@ class TodoListController extends AbstractController
     }
 
     /**
-     * Index action
+     * Index action.
      *
      * @return Response
      */
@@ -60,6 +56,7 @@ class TodoListController extends AbstractController
     {
         $user = $this->getUser();
         $todoLists = $this->todoListService->getAll($user);
+
         return $this->render(
             'todo_lists/index.html.twig',
             ['todoLists' => $todoLists]
@@ -67,9 +64,10 @@ class TodoListController extends AbstractController
     }
 
     /**
-     * Show action
+     * Show action.
      *
      * @param TodoList $todoList
+     *
      * @return Response
      */
     #[Route(
@@ -82,15 +80,18 @@ class TodoListController extends AbstractController
     {
         if ($todoList->getAuthor()->getUserIdentifier() !== $this->getUser()->getUserIdentifier()) {
             $this->addFlash('danger', $this->translator->trans('message.no_permission'));
+
             return $this->redirectToRoute('note_index');
         }
-        return $this->render('todo_lists/show.html.twig', [ 'todoList' => $todoList ]);
+
+        return $this->render('todo_lists/show.html.twig', ['todoList' => $todoList]);
     }
 
     /**
-     * Create action
+     * Create action.
      *
      * @param Request $request
+     *
      * @return Response
      */
     #[Route(
@@ -107,6 +108,7 @@ class TodoListController extends AbstractController
             $todoList->setAuthor($this->getUser());
             $this->todoListService->save($todoList);
             $this->addFlash('success', $this->translator->trans('message.created_successfully'));
+
             return $this->redirectToRoute('todolist_index');
         }
 
@@ -114,11 +116,7 @@ class TodoListController extends AbstractController
     }
 
     /**
-     * Edit action
-     *
-     * @param Request $request
-     * @param TodoList $todoList
-     * @return Response
+     * Edit action.
      */
     #[Route(
         '/{id}/edit',
@@ -130,6 +128,7 @@ class TodoListController extends AbstractController
     {
         if ($todoList->getAuthor()->getUserIdentifier() !== $this->getUser()->getUserIdentifier()) {
             $this->addFlash('danger', $this->translator->trans('message.no_permission'));
+
             return $this->redirectToRoute('note_index');
         }
         $form = $this->createForm(
@@ -147,22 +146,19 @@ class TodoListController extends AbstractController
 
         return $this->render(
             'todo_lists/edit.html.twig',
-            ['form' => $form->createView(), 'todoList' => $todoList,]
+            ['form' => $form->createView(), 'todoList' => $todoList]
         );
     }
 
     /**
-     * Delete action
-     *
-     * @param Request $request
-     * @param TodoList $todoList
-     * @return Response
+     * Delete action.
      */
     #[Route('/{id}/delete', name: 'todolist_delete', requirements: ['id' => '[1-9]\d*'], methods: 'GET|DELETE')]
     public function delete(Request $request, TodoList $todoList): Response
     {
         if ($todoList->getAuthor()->getUserIdentifier() !== $this->getUser()->getUserIdentifier()) {
             $this->addFlash('danger', $this->translator->trans('message.no_permission'));
+
             return $this->redirectToRoute('note_index');
         }
         $form = $this->createForm(FormType::class, $todoList, [
@@ -174,12 +170,13 @@ class TodoListController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->todoListService->delete($todoList);
             $this->addFlash('success', $this->translator->trans('message.deleted_successfully'));
+
             return $this->redirectToRoute('todolist_index');
         }
 
         return $this->render(
             'todo_lists/delete.html.twig',
-            ['form' => $form->createView(), 'todoList' => $todoList,]
+            ['form' => $form->createView(), 'todoList' => $todoList]
         );
     }
 }

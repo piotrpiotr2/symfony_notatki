@@ -1,6 +1,6 @@
 <?php
 /**
- * UserRegister Controller
+ * UserRegister Controller.
  */
 
 namespace App\Controller;
@@ -18,45 +18,37 @@ use App\Entity\User;
 use App\Security\LoginFormAuthenticator;
 
 /**
- * Class UserRegisterController
+ * Class UserRegisterController.
  */
 class UserRegisterController extends AbstractController
 {
     /**
-     * User service
-     *
-     * @var UserService
+     * User service.
      */
     private UserService $service;
 
     /**
-     * User password hasher interface
-     *
-     * @var UserPasswordHasherInterface
+     * User password hasher interface.
      */
     private UserPasswordHasherInterface $passwordHasher;
 
     /**
-     * User authenticator interface
-     *
-     * @var UserAuthenticatorInterface
+     * User authenticator interface.
      */
     private UserAuthenticatorInterface $userAuthenticator;
 
     /**
-     * Login form authenticator interface
-     *
-     * @var LoginFormAuthenticator
+     * Login form authenticator interface.
      */
     private LoginFormAuthenticator $authenticator;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param UserService $service
+     * @param UserService                 $service
      * @param UserPasswordHasherInterface $passwordHasher
-     * @param UserAuthenticatorInterface $userAuthenticator
-     * @param LoginFormAuthenticator $authenticator
+     * @param UserAuthenticatorInterface  $userAuthenticator
+     * @param LoginFormAuthenticator      $authenticator
      */
     public function __construct(UserService $service, UserPasswordHasherInterface $passwordHasher, UserAuthenticatorInterface $userAuthenticator, LoginFormAuthenticator $authenticator)
     {
@@ -67,9 +59,10 @@ class UserRegisterController extends AbstractController
     }
 
     /**
-     * Register
+     * Register.
      *
      * @param Request $request
+     *
      * @return Response
      */
     #[Route(

@@ -1,6 +1,6 @@
 <?php
 /**
- * Note type
+ * Note type.
  */
 
 namespace App\Form;
@@ -20,29 +20,25 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * Class NoteType
+ * Class NoteType.
  */
 class NoteType extends AbstractType
 {
     /**
-     * Translator
-     *
-     * @var TranslatorInterface
+     * Translator.
      */
     private TranslatorInterface $translator;
 
     /**
-     * User
-     *
-     * @var UserInterface|null
+     * User.
      */
     private ?UserInterface $user;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param TranslatorInterface $translator
-     * @param Security $security
+     * @param Security            $security
      */
     public function __construct(TranslatorInterface $translator, Security $security)
     {
@@ -65,21 +61,27 @@ class NoteType extends AbstractType
     {
         $builder
             ->add(
-                'title', TextType::class, [
+                'title',
+                TextType::class,
+                [
                     'required' => true,
                     'attr' => ['max_length' => 255],
                     'label' => $this->translator->trans('label.title'),
                 ]
             )
             ->add(
-                'content', TextType::class, [
+                'content',
+                TextType::class,
+                [
                     'required' => true,
                     'attr' => ['max_length' => 1000],
                     'label' => $this->translator->trans('label.content'),
                 ]
             )
             ->add(
-                'tags', EntityType::class, [
+                'tags',
+                EntityType::class,
+                [
                     'class' => Tag::class,
                     'label' => $this->translator->trans('label.tags'),
                     'placeholder' => $this->translator->trans('label.none'),
@@ -92,7 +94,9 @@ class NoteType extends AbstractType
                 ]
             )
             ->add(
-                'category', EntityType::class, [
+                'category',
+                EntityType::class,
+                [
                     'class' => Category::class,
                     'label' => $this->translator->trans('label.category'),
                     'placeholder' => $this->translator->trans('label.none'),

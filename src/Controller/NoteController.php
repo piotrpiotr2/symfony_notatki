@@ -1,6 +1,6 @@
 <?php
 /**
- * Note controller
+ * Note controller.
  */
 
 namespace App\Controller;
@@ -16,29 +16,25 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class NoteController
+ * Class NoteController.
  */
 #[Route('/notes')]
 class NoteController extends AbstractController
 {
     /**
-     * Note service
-     *
-     * @var NoteService
+     * Note service.
      */
     private NoteService $noteService;
 
     /**
-     * Translator interface
-     *
-     * @var TranslatorInterface
+     * Translator interface.
      */
     private TranslatorInterface $translator;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param NoteService $noteService
+     * @param NoteService         $noteService
      * @param TranslatorInterface $translator
      */
     public function __construct(NoteService $noteService, TranslatorInterface $translator)
@@ -48,9 +44,10 @@ class NoteController extends AbstractController
     }
 
     /**
-     * Index action
+     * Index action.
      *
      * @param Request $request
+     *
      * @return Response
      */
     #[Route(
@@ -71,9 +68,10 @@ class NoteController extends AbstractController
     }
 
     /**
-     * Show action
+     * Show action.
      *
      * @param Note $note
+     *
      * @return Response
      */
     #[Route(
@@ -86,16 +84,18 @@ class NoteController extends AbstractController
     {
         if ($note->getAuthor()->getUserIdentifier() !== $this->getUser()->getUserIdentifier()) {
             $this->addFlash('danger', $this->translator->trans('message.no_permission'));
+
             return $this->redirectToRoute('note_index');
         }
 
-        return $this->render('note/show.html.twig', [ 'note' => $note ]);
+        return $this->render('note/show.html.twig', ['note' => $note]);
     }
 
     /**
-     * Create action
+     * Create action.
      *
      * @param Request $request
+     *
      * @return Response
      */
     #[Route(
@@ -113,6 +113,7 @@ class NoteController extends AbstractController
             $note->setAuthor($this->getUser());
             $this->noteService->save($note);
             $this->addFlash('success', $this->translator->trans('message.created_successfully'));
+
             return $this->redirectToRoute('note_index');
         }
 
@@ -120,10 +121,11 @@ class NoteController extends AbstractController
     }
 
     /**
-     * Edit action
+     * Edit action.
      *
      * @param Request $request
-     * @param Note $note
+     * @param Note    $note
+     *
      * @return Response
      */
     #[Route(
@@ -136,6 +138,7 @@ class NoteController extends AbstractController
     {
         if ($note->getAuthor()->getUserIdentifier() !== $this->getUser()->getUserIdentifier()) {
             $this->addFlash('danger', $this->translator->trans('message.no_permission'));
+
             return $this->redirectToRoute('note_index');
         }
 
@@ -155,15 +158,16 @@ class NoteController extends AbstractController
 
         return $this->render(
             'note/edit.html.twig',
-            ['form' => $form->createView(), 'note' => $note,]
+            ['form' => $form->createView(), 'note' => $note]
         );
     }
 
     /**
-     * Delete action
+     * Delete action.
      *
      * @param Request $request
-     * @param Note $note
+     * @param Note    $note
+     *
      * @return Response
      */
     #[Route('/{id}/delete', name: 'note_delete', requirements: ['id' => '[1-9]\d*'], methods: 'GET|DELETE')]
@@ -171,6 +175,7 @@ class NoteController extends AbstractController
     {
         if ($note->getAuthor()->getUserIdentifier() !== $this->getUser()->getUserIdentifier()) {
             $this->addFlash('danger', $this->translator->trans('message.no_permission'));
+
             return $this->redirectToRoute('note_index');
         }
 
@@ -189,21 +194,22 @@ class NoteController extends AbstractController
 
         return $this->render(
             'note/delete.html.twig',
-            ['form' => $form->createView(), 'note' => $note,]
+            ['form' => $form->createView(), 'note' => $note]
         );
     }
 
     /**
-     * Filters action
+     * Filters action.
      *
      * @param Request $request
+     *
      * @return array
      */
     private function filters(Request $request): array
     {
         return [
             'tag_id' => $request->query->getInt('filters_tag_id'),
-            'category_id' => $request->query->getInt('filters_category_id')
+            'category_id' => $request->query->getInt('filters_category_id'),
         ];
     }
 }

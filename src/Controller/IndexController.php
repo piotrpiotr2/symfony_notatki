@@ -1,6 +1,6 @@
 <?php
 /**
- * Index controller
+ * Index controller.
  */
 
 namespace App\Controller;
@@ -10,13 +10,13 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class IndexController
+ * Class IndexController.
  */
 #[Route('/')]
 class IndexController extends AbstractController
 {
     /**
-     * Index action
+     * Index action.
      *
      * @return RedirectResponse
      */

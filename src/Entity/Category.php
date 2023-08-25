@@ -1,6 +1,6 @@
 <?php
 /**
- * Category entity
+ * Category entity.
  */
 
 namespace App\Entity;
@@ -10,15 +10,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Category
+ * Class Category.
  */
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
 {
     /**
-     * Primary key
-     *
-     * @var int|null
+     * Primary key.
      */
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -26,9 +24,7 @@ class Category
     private ?int $id = null;
 
     /**
-     * Category name
-     *
-     * @var string|null
+     * Category name.
      */
     #[ORM\Column(length: 255)]
     #[Assert\Type('string')]
@@ -36,16 +32,14 @@ class Category
     private ?string $name = null;
 
     /**
-     * Category author
-     *
-     * @var User|null
+     * Category author.
      */
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $author = null;
 
     /**
-     * Id getter
+     * Id getter.
      *
      * @return int|null
      */
@@ -55,7 +49,7 @@ class Category
     }
 
     /**
-     * Name getter
+     * Name getter.
      *
      * @return string|null
      */
@@ -65,9 +59,10 @@ class Category
     }
 
     /**
-     * Name setter
+     * Name setter.
      *
      * @param string $name
+     *
      * @return $this
      */
     public function setName(string $name): static
@@ -78,7 +73,7 @@ class Category
     }
 
     /**
-     * Get author
+     * Get author.
      *
      * @return User|null
      */
@@ -88,9 +83,10 @@ class Category
     }
 
     /**
-     * Set author
+     * Set author.
      *
      * @param User|null $author
+     *
      * @return $this
      */
     public function setAuthor(?User $author): static

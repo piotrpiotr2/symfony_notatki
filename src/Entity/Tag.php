@@ -1,6 +1,6 @@
 <?php
 /**
- * Tag entity
+ * Tag entity.
  */
 
 namespace App\Entity;
@@ -10,15 +10,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Tag
+ * Class Tag.
  */
 #[ORM\Entity(repositoryClass: TagRepository::class)]
 class Tag
 {
     /**
-     * Primary key
-     *
-     * @var int|null
+     * Primary key.
      */
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -26,9 +24,7 @@ class Tag
     private ?int $id = null;
 
     /**
-     * Name
-     *
-     * @var string|null
+     * Name.
      */
     #[ORM\Column(length: 255)]
     #[Assert\Type('string')]
@@ -36,7 +32,7 @@ class Tag
     private ?string $name = null;
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int|null
      */
@@ -46,7 +42,7 @@ class Tag
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string|null
      */
@@ -56,9 +52,10 @@ class Tag
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return $this
      */
     public function setName(string $name): static

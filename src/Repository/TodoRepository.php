@@ -1,6 +1,6 @@
 <?php
 /**
- * Todo repository
+ * Todo repository.
  */
 
 namespace App\Repository;
@@ -10,7 +10,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * Class TodoRepository
+ * Class TodoRepository.
  *
  * @extends ServiceEntityRepository<Todo>
  *
@@ -22,7 +22,7 @@ use Doctrine\Persistence\ManagerRegistry;
 class TodoRepository extends ServiceEntityRepository
 {
     /**
-     * Items per page
+     * Items per page.
      */
     public const PAGINATOR_ITEMS_PER_PAGE = 10;
 
@@ -30,7 +30,6 @@ class TodoRepository extends ServiceEntityRepository
      * Save
      *
      * @param Todo $todo
-     * @return void
      */
     public function save(Todo $todo): void
     {
@@ -42,7 +41,6 @@ class TodoRepository extends ServiceEntityRepository
      * Delete
      *
      * @param Todo $todo
-     * @return void
      */
     public function delete(Todo $todo): void
     {

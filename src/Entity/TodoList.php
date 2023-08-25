@@ -1,6 +1,6 @@
 <?php
 /**
- * TodoList entity
+ * TodoList entity.
  */
 
 namespace App\Entity;
@@ -12,15 +12,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class TodoList
+ * Class TodoList.
  */
 #[ORM\Entity(repositoryClass: TodoListRepository::class)]
 class TodoList
 {
     /**
-     * Primary key
-     *
-     * @var int|null
+     * Primary key.
      */
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -28,9 +26,7 @@ class TodoList
     private ?int $id = null;
 
     /**
-     * Title
-     *
-     * @var string|null
+     * Title.
      */
     #[ORM\Column(length: 255)]
     #[Assert\Type('string')]
@@ -38,24 +34,20 @@ class TodoList
     private ?string $title = null;
 
     /**
-     * Todos
-     *
-     * @var ArrayCollection|Collection
+     * Todos.
      */
     #[ORM\OneToMany(mappedBy: 'todoList', targetEntity: Todo::class, orphanRemoval: true)]
     private Collection|ArrayCollection $todos;
 
     /**
-     * Author
-     *
-     * @var User|null
+     * Author.
      */
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $author = null;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -63,7 +55,7 @@ class TodoList
     }
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int|null
      */
@@ -73,7 +65,7 @@ class TodoList
     }
 
     /**
-     * Get title
+     * Get title.
      *
      * @return string|null
      */
@@ -83,9 +75,10 @@ class TodoList
     }
 
     /**
-     * Set title
+     * Set title.
      *
      * @param string $title
+     *
      * @return $this
      */
     public function setTitle(string $title): static
@@ -96,7 +89,7 @@ class TodoList
     }
 
     /**
-     * Get todos
+     * Get todos.
      *
      * @return Collection<int, Todo>
      */
@@ -106,9 +99,10 @@ class TodoList
     }
 
     /**
-     * Add todo
+     * Add todo.
      *
      * @param Todo $todo
+     *
      * @return $this
      */
     public function addTodo(Todo $todo): static
@@ -122,9 +116,10 @@ class TodoList
     }
 
     /**
-     * Remove todo
+     * Remove todo.
      *
      * @param Todo $todo
+     *
      * @return $this
      */
     public function removeTodo(Todo $todo): static
@@ -140,7 +135,7 @@ class TodoList
     }
 
     /**
-     * Get author
+     * Get author.
      *
      * @return User|null
      */
@@ -150,9 +145,10 @@ class TodoList
     }
 
     /**
-     * Set author
+     * Set author.
      *
      * @param User|null $author
+     *
      * @return $this
      */
     public function setAuthor(?User $author): static

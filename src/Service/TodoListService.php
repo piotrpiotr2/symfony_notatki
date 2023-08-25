@@ -1,6 +1,6 @@
 <?php
 /**
- * TodoList service
+ * TodoList service.
  */
 
 namespace App\Service;
@@ -10,7 +10,7 @@ use App\Repository\TodoListRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * Class TodoListService
+ * Class TodoListService.
  */
 class TodoListService
 {
@@ -33,7 +33,6 @@ class TodoListService
      * Save
      *
      * @param TodoList $todoList
-     * @return void
      */
     public function save(TodoList $todoList): void
     {
@@ -44,7 +43,6 @@ class TodoListService
      * Delete
      *
      * @param TodoList $todoList
-     * @return void
      */
     public function delete(TodoList $todoList): void
     {
@@ -55,6 +53,7 @@ class TodoListService
      * Get all
      *
      * @param UserInterface $user
+     *
      * @return array
      */
     public function getAll(UserInterface $user): array

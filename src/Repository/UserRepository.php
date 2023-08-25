@@ -1,6 +1,6 @@
 <?php
 /**
- * User repository
+ * User repository.
  */
 
 namespace App\Repository;
@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 /**
- * Class UserRepository
+ * Class UserRepository.
  *
  * @extends ServiceEntityRepository<User>
  *
@@ -39,8 +39,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      * Upgrade password
      *
      * @param PasswordAuthenticatedUserInterface $user
-     * @param string $newHashedPassword
-     * @return void
+     * @param string                             $newHashedPassword
      */
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
@@ -67,7 +66,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      * Save user
      *
      * @param User $user
-     * @return void
      */
     public function save(User $user): void
     {

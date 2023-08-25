@@ -6,7 +6,6 @@
 namespace App\Service;
 
 use App\Entity\Note;
-use App\Entity\User;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use App\Repository\NoteRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -19,39 +18,31 @@ class NoteService
 {
     /**
      * Note repository
-     *
-     * @var NoteRepository
      */
     private NoteRepository $noteRepository;
 
     /**
      * Paginator interface
-     *
-     * @var PaginatorInterface
      */
     private PaginatorInterface $paginator;
 
     /**
      * Tag service
-     *
-     * @var TagService
      */
     private TagService $tagService;
 
     /**
      * Category service
-     *
-     * @var CategoryService
      */
     private CategoryService $categoryService;
 
     /**
      * Constructor
      *
-     * @param NoteRepository $noteRepository
+     * @param NoteRepository     $noteRepository
      * @param PaginatorInterface $paginator
-     * @param TagService $tagService
-     * @param CategoryService $categoryService
+     * @param TagService         $tagService
+     * @param CategoryService    $categoryService
      */
     public function __construct(NoteRepository $noteRepository, PaginatorInterface $paginator, TagService $tagService, CategoryService $categoryService)
     {
@@ -65,7 +56,6 @@ class NoteService
      * Save
      *
      * @param Note $note
-     * @return void
      */
     public function save(Note $note): void
     {
@@ -76,7 +66,6 @@ class NoteService
      * Delete
      *
      * @param Note $note
-     * @return void
      */
     public function delete(Note $note): void
     {
@@ -84,24 +73,30 @@ class NoteService
     }
 
     /**
-     * Get paginated list
+     * Get paginated list.
      *
-     * @param int $page
+     * @param int           $page
      * @param UserInterface $user
-     * @param array $filters
+     * @param array         $filters
+     *
      * @return PaginationInterface
      */
     public function getPaginatedList(int $page, UserInterface $user, array $filters = []): PaginationInterface
     {
         $filters = $this->prepareFilters($filters);
+
         return $this->paginator->paginate(
-            $this->noteRepository->queryByAuthor($user, $filters), $page, NoteRepository::PAGINATOR_ITEMS_PER_PAGE);
+            $this->noteRepository->queryByAuthor($user, $filters),
+            $page,
+            NoteRepository::PAGINATOR_ITEMS_PER_PAGE
+        );
     }
 
     /**
      * Prepare filters
      *
      * @param array $filters
+     *
      * @return array
      */
     private function prepareFilters(array $filters): array

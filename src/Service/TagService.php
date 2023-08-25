@@ -1,6 +1,6 @@
 <?php
 /**
- * Tag service
+ * Tag service.
  */
 
 namespace App\Service;
@@ -9,14 +9,12 @@ use App\Entity\Tag;
 use App\Repository\TagRepository;
 
 /**
- * Class TagService
+ * Class TagService.
  */
 class TagService
 {
     /**
-     * Tag repository
-     *
-     * @var TagRepository
+     * Tag repository.
      */
     private TagRepository $tagRepository;
 
@@ -34,7 +32,6 @@ class TagService
      * Save
      *
      * @param Tag $tag
-     * @return void
      */
     public function save(Tag $tag): void
     {
@@ -45,7 +42,6 @@ class TagService
      * Delete
      *
      * @param Tag $tag
-     * @return void
      */
     public function delete(Tag $tag): void
     {
@@ -53,9 +49,10 @@ class TagService
     }
 
     /**
-     * Find one by Id
+     * Find one
      *
      * @param int $id
+     *
      * @return Tag|null
      */
     public function findOneById(int $id): ?Tag
@@ -64,7 +61,7 @@ class TagService
     }
 
     /**
-     * Get all
+     * Get all.
      *
      * @return array
      */

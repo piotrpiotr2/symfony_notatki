@@ -1,6 +1,6 @@
 <?php
 /**
- * User service
+ * User service.
  */
 
 namespace App\Service;
@@ -15,8 +15,6 @@ class UserService
 {
     /**
      * User repository
-     *
-     * @var UserRepository
      */
     private UserRepository $userRepository;
 
@@ -34,13 +32,17 @@ class UserService
      * Save
      *
      * @param User $user
-     * @return void
      */
     public function save(User $user): void
     {
         $this->userRepository->save($user);
     }
 
+    /**
+     * Get all
+     *
+     * @return array
+     */
     public function findAll(): array
     {
         return $this->userRepository->all();

@@ -28,7 +28,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class NoteRepository extends ServiceEntityRepository
 {
     /**
-     * Items per page
+     * Items per page.
      */
     public const PAGINATOR_ITEMS_PER_PAGE = 10;
 
@@ -46,7 +46,6 @@ class NoteRepository extends ServiceEntityRepository
      * Save
      *
      * @param Note $note
-     * @return void
      */
     public function save(Note $note): void
     {
@@ -58,7 +57,6 @@ class NoteRepository extends ServiceEntityRepository
      * Delete
      *
      * @param Note $note
-     * @return void
      */
     public function delete(Note $note): void
     {
@@ -79,8 +77,14 @@ class NoteRepository extends ServiceEntityRepository
     }
 
     /**
-     * @throws NonUniqueResultException
+     * Count by category
+     *
+     * @param Category $category
+     *
+     * @return mixed
+     *
      * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function countByCategory(Category $category): mixed
     {
@@ -113,9 +117,10 @@ class NoteRepository extends ServiceEntityRepository
     }
 
     /**
-     * Get all notes
+     * Get all notes.
      *
      * @param array $filters
+     *
      * @return QueryBuilder
      */
     public function queryAll(array $filters): QueryBuilder
@@ -135,10 +140,11 @@ class NoteRepository extends ServiceEntityRepository
     }
 
     /**
-     * Filter
+     * Filter.
      *
      * @param QueryBuilder $queryBuilder
-     * @param array $filters
+     * @param array        $filters
+     *
      * @return QueryBuilder
      */
     private function filter(QueryBuilder $queryBuilder, array $filters = []): QueryBuilder

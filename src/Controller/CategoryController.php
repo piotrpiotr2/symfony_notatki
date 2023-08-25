@@ -1,6 +1,6 @@
 <?php
 /**
- * Category controller
+ * Category controller.
  */
 
 namespace App\Controller;
@@ -16,29 +16,25 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class CategoryController
+ * Class CategoryController.
  */
 #[Route('/categories')]
 class CategoryController extends AbstractController
 {
     /**
-     * Category service
-     *
-     * @var CategoryService
+     * Category service.
      */
     private CategoryService $categoryService;
 
     /**
-     * Translator interface
-     *
-     * @var TranslatorInterface
+     * Translator interface.
      */
     private TranslatorInterface $translator;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param CategoryService $categoryService
+     * @param CategoryService     $categoryService
      * @param TranslatorInterface $translator
      */
     public function __construct(CategoryService $categoryService, TranslatorInterface $translator)
@@ -48,7 +44,7 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * Index action
+     * Index action.
      *
      * @return Response
      */
@@ -67,9 +63,10 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * Show action
+     * Show action.
      *
      * @param Category $category
+     *
      * @return Response
      */
     #[Route(
@@ -82,16 +79,18 @@ class CategoryController extends AbstractController
     {
         if ($category->getAuthor()->getUserIdentifier() !== $this->getUser()->getUserIdentifier()) {
             $this->addFlash('danger', $this->translator->trans('message.no_permission'));
+
             return $this->redirectToRoute('category_index');
         }
 
-        return $this->render('category/show.html.twig', [ 'category' => $category ]);
+        return $this->render('category/show.html.twig', ['category' => $category]);
     }
 
     /**
-     * Create action
+     * Create action.
      *
      * @param Request $request
+     *
      * @return Response
      */
     #[Route(
@@ -109,6 +108,7 @@ class CategoryController extends AbstractController
             $category->setAuthor($this->getUser());
             $this->categoryService->save($category);
             $this->addFlash('success', $this->translator->trans('message.created_successfully'));
+
             return $this->redirectToRoute('category_index');
         }
 
@@ -116,10 +116,11 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * Edit action
+     * Edit action.
      *
-     * @param Request $request
+     * @param Request  $request
      * @param Category $category
+     *
      * @return Response
      */
     #[Route(
@@ -132,11 +133,13 @@ class CategoryController extends AbstractController
     {
         if ($category->getAuthor()->getUserIdentifier() !== $this->getUser()->getUserIdentifier()) {
             $this->addFlash('danger', $this->translator->trans('message.no_permission'));
+
             return $this->redirectToRoute('category_index');
         }
 
         $form = $this->createForm(
-            CategoryType::class, $category,
+            CategoryType::class,
+            $category,
             ['method' => 'PUT', 'action' => $this->generateUrl('category_edit', ['id' => $category->getId()])]
         );
         $form->handleRequest($request);
@@ -150,15 +153,16 @@ class CategoryController extends AbstractController
 
         return $this->render(
             'category/edit.html.twig',
-            ['form' => $form->createView(), 'category' => $category,]
+            ['form' => $form->createView(), 'category' => $category]
         );
     }
 
     /**
-     * Delete action
+     * Delete action.
      *
      * @param Category $category
-     * @param Request $request
+     * @param Request  $request
+     *
      * @return Response
      */
     #[Route('/{id}/delete', name: 'category_delete', methods: 'GET|DELETE')]
@@ -166,6 +170,7 @@ class CategoryController extends AbstractController
     {
         if ($category->getAuthor()->getUserIdentifier() !== $this->getUser()->getUserIdentifier()) {
             $this->addFlash('danger', $this->translator->trans('message.no_permission'));
+
             return $this->redirectToRoute('category_index');
         }
 
@@ -182,6 +187,6 @@ class CategoryController extends AbstractController
             return $this->redirectToRoute('category_index');
         }
 
-        return $this->render('category/delete.html.twig', ['form' => $form->createView(), 'category' => $category,]);
+        return $this->render('category/delete.html.twig', ['form' => $form->createView(), 'category' => $category]);
     }
 }

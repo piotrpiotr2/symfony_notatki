@@ -1,6 +1,6 @@
 <?php
 /**
- * User register form type
+ * User register form type.
  */
 
 namespace App\Form;
@@ -16,19 +16,17 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * Class UserRegisterType
+ * Class UserRegisterType.
  */
 class UserRegisterType extends AbstractType
 {
     /**
-     * Translator
-     *
-     * @var TranslatorInterface
+     * Translator.
      */
     private TranslatorInterface $translator;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param TranslatorInterface $translator
      */
@@ -38,25 +36,30 @@ class UserRegisterType extends AbstractType
     }
 
     /**
-     * Build form
+     * Build form.
      *
      * @param FormBuilderInterface $builder
-     * @param array $options
-     * @return void
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', EmailType::class, [
+            ->add(
+                'email',
+                EmailType::class,
+                [
                     'label' => $this->translator->trans('label.email'),
                     'required' => true,
                 ]
             )
-            ->add('password', PasswordType::class, [
+            ->add(
+                'password',
+                PasswordType::class,
+                [
                     'label' => $this->translator->trans('label.password'),
                     'mapped' => true,
                     'attr' => ['autocomplete' => 'new-password'],
-                    'constraints' => [new NotBlank(), new Length(['min' => 8, 'max' => 256,]),],
+                    'constraints' => [new NotBlank(), new Length(['min' => 8, 'max' => 256])],
                 ]
             );
     }

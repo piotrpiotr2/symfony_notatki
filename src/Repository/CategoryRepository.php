@@ -1,6 +1,6 @@
 <?php
 /**
- * Category repository
+ * Category repository.
  */
 
 namespace App\Repository;
@@ -12,7 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * Class CategoryRepository
+ * Class CategoryRepository.
  *
  * @extends ServiceEntityRepository<Category>
  *
@@ -24,7 +24,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class CategoryRepository extends ServiceEntityRepository
 {
     /**
-     * Constructor
+     * Constructor.
      *
      * @param ManagerRegistry $registry
      */
@@ -34,10 +34,9 @@ class CategoryRepository extends ServiceEntityRepository
     }
 
     /**
-     * Save
+     * Save.
      *
      * @param Category $category
-     * @return void
      */
     public function save(Category $category): void
     {
@@ -46,10 +45,9 @@ class CategoryRepository extends ServiceEntityRepository
     }
 
     /**
-     * Delete
+     * Delete.
      *
      * @param Category $category
-     * @return void
      */
     public function delete(Category $category): void
     {
@@ -73,6 +71,7 @@ class CategoryRepository extends ServiceEntityRepository
      * Query categories by author.
      *
      * @param UserInterface $user User entity
+     *
      * @return QueryBuilder Query builder
      */
     public function queryByAuthor(UserInterface $user): QueryBuilder
@@ -84,7 +83,7 @@ class CategoryRepository extends ServiceEntityRepository
     }
 
     /**
-     * Get all categories
+     * Get all categories.
      *
      * @return QueryBuilder
      */
@@ -94,9 +93,10 @@ class CategoryRepository extends ServiceEntityRepository
     }
 
     /**
-     * Find one category
+     * Find one category.
      *
      * @param int $id
+     *
      * @return Category|null
      */
     public function findOneById(int $id): ?Category

@@ -1,6 +1,6 @@
 <?php
 /**
- * User controller
+ * User controller.
  */
 
 namespace App\Controller;
@@ -19,29 +19,25 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * Class UserController
+ * Class UserController.
  */
 #[Route('/users')]
 class UserController extends AbstractController
 {
     /**
-     * Translator interface
-     *
-     * @var TranslatorInterface
+     * Translator interface.
      */
     private TranslatorInterface $translator;
 
     /**
-     * User service
-     *
-     * @var UserService
+     * User service.
      */
     private UserService $userService;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param UserService $userService
+     * @param UserService         $userService
      * @param TranslatorInterface $translator
      */
     public function __construct(UserService $userService, TranslatorInterface $translator)
@@ -51,7 +47,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * Index action
+     * Index action.
      *
      * @return Response
      */
@@ -63,18 +59,21 @@ class UserController extends AbstractController
     {
         if (!in_array(UserRole::ROLE_ADMIN->value, $this->getUser()->getRoles())) {
             $this->addFlash('danger', $this->translator->trans('message.no_permission'));
+
             return $this->redirectToRoute('note_index');
         }
 
         $users = $this->userService->findAll();
+
         return $this->render('user/index.html.twig', ['users' => $users]);
     }
 
     /**
-     * Edit action
+     * Edit action.
      *
      * @param Request $request
-     * @param User $user
+     * @param User    $user
+     *
      * @return Response
      */
     #[Route(
@@ -85,12 +84,16 @@ class UserController extends AbstractController
     )]
     public function editUser(Request $request, User $user): Response
     {
-        if (!in_array(UserRole::ROLE_ADMIN->value, $this->getUser()->getRoles()) && !$this->getUser()->getUserIdentifier() == $user->getUserIdentifier()) {
+        if (!in_array(UserRole::ROLE_ADMIN->value, $this->getUser()->getRoles()) && (!$this->getUser()->getUserIdentifier() === $user->getUserIdentifier())) {
             $this->addFlash('danger', $this->translator->trans('message.no_permission'));
+
             return $this->redirectToRoute('note_index');
         }
 
-        $form = $this->createForm(UserType::class, $user, [
+        $form = $this->createForm(
+            UserType::class,
+            $user,
+            [
                 'method' => 'PUT',
                 'action' => $this->generateUrl('edit_user', ['id' => $user->getId()]),
             ]
@@ -103,7 +106,9 @@ class UserController extends AbstractController
             return $this->redirectToRoute('user_index');
         }
 
-        return $this->render('user/edit_user.html.twig', [
+        return $this->render(
+            'user/edit_user.html.twig',
+            [
                 'form' => $form->createView(),
                 'user' => $user,
             ]
@@ -111,9 +116,10 @@ class UserController extends AbstractController
     }
 
     /**
-     * Show action
+     * Show action.
      *
      * @param User $user
+     *
      * @return Response
      */
     #[Route(
@@ -132,11 +138,12 @@ class UserController extends AbstractController
     }
 
     /**
-     * Change password action
+     * Change password action.
      *
-     * @param Request $request
-     * @param User $user
+     * @param Request                     $request
+     * @param User                        $user
      * @param UserPasswordHasherInterface $passwordHasher
+     *
      * @return Response
      */
     #[Route(
@@ -148,8 +155,9 @@ class UserController extends AbstractController
     public function changePassword(Request $request, User $user, UserPasswordHasherInterface $passwordHasher): Response
     {
         if (!in_array(UserRole::ROLE_ADMIN->value, $this->getUser()->getRoles())
-            && !$this->getUser()->getUserIdentifier() == $user->getUserIdentifier()) {
+            && !$this->getUser()->getUserIdentifier() === $user->getUserIdentifier()) {
             $this->addFlash('danger', $this->translator->trans('message.no_permission'));
+
             return $this->redirectToRoute('note_index');
         }
 

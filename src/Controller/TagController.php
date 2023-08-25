@@ -22,23 +22,19 @@ use Symfony\Component\HttpFoundation\Response;
 class TagController extends AbstractController
 {
     /**
-     * Tag service
-     *
-     * @var TagService
+     * Tag service.
      */
     private TagService $tagService;
 
     /**
-     * Translator interface
-     *
-     * @var TranslatorInterface
+     * Translator interface.
      */
     private TranslatorInterface $translator;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param TagService $tagService
+     * @param TagService          $tagService
      * @param TranslatorInterface $translator
      */
     public function __construct(TagService $tagService, TranslatorInterface $translator)
@@ -48,7 +44,7 @@ class TagController extends AbstractController
     }
 
     /**
-     * Index action
+     * Index action.
      *
      * @return Response
      */
@@ -67,9 +63,10 @@ class TagController extends AbstractController
     }
 
     /**
-     * Show action
+     * Show action.
      *
      * @param Tag $tag
+     *
      * @return Response
      */
     #[Route(
@@ -84,9 +81,10 @@ class TagController extends AbstractController
     }
 
     /**
-     * Create action
+     * Create action.
      *
      * @param Request $request
+     *
      * @return Response
      */
     #[Route(
@@ -102,6 +100,7 @@ class TagController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->tagService->save($tag);
             $this->addFlash('success', $this->translator->trans('message.created_successfully'));
+
             return $this->redirectToRoute('tag_index');
         }
 
@@ -109,10 +108,11 @@ class TagController extends AbstractController
     }
 
     /**
-     * Edit action
+     * Edit action.
      *
      * @param Request $request
-     * @param Tag $tag
+     * @param Tag     $tag
+     *
      * @return Response
      */
     #[Route(
@@ -123,17 +123,19 @@ class TagController extends AbstractController
     )]
     public function edit(Request $request, Tag $tag): Response
     {
-        $form = $this->createForm(TagType::class, $tag, ['method' => 'PUT', 'action' => $this->generateUrl('tag_edit', ['id' => $tag->getId()]),]);
+        $form = $this->createForm(TagType::class, $tag, ['method' => 'PUT', 'action' => $this->generateUrl('tag_edit', ['id' => $tag->getId()])]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->tagService->save($tag);
             $this->addFlash('success', $this->translator->trans('message.updated_successfully'));
+
             return $this->redirectToRoute('tag_index');
         }
 
         return $this->render(
-            'tag/edit.html.twig', [
+            'tag/edit.html.twig',
+            [
                 'form' => $form->createView(),
                 'tag' => $tag,
             ]
@@ -141,10 +143,11 @@ class TagController extends AbstractController
     }
 
     /**
-     * Delete action
+     * Delete action.
      *
      * @param Request $request
-     * @param Tag $tag
+     * @param Tag     $tag
+     *
      * @return Response
      */
     #[Route(
@@ -163,10 +166,13 @@ class TagController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->tagService->delete($tag);
             $this->addFlash('success', $this->translator->trans('message.deleted_successfully'));
+
             return $this->redirectToRoute('tag_index');
         }
 
-        return $this->render('tag/delete.html.twig', [
+        return $this->render(
+            'tag/delete.html.twig',
+            [
                 'form' => $form->createView(),
                 'tag' => $tag,
             ]

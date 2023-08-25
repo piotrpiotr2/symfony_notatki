@@ -1,6 +1,6 @@
 <?php
 /**
- * User form type
+ * User form type.
  */
 
 namespace App\Form;
@@ -13,19 +13,17 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * Class UserType
+ * Class UserType.
  */
 class UserType extends AbstractType
 {
     /**
-     * Translator
-     *
-     * @var TranslatorInterface
+     * Translator.
      */
     private TranslatorInterface $translator;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param TranslatorInterface $translator
      */
@@ -35,16 +33,18 @@ class UserType extends AbstractType
     }
 
     /**
-     * Build form
+     * Build form.
      *
      * @param FormBuilderInterface $builder
-     * @param array $options
-     * @return void
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', EmailType::class, [
+            ->add(
+                'email',
+                EmailType::class,
+                [
                     'attr' => ['max_length' => 100],
                     'label' => $this->translator->trans('label.email'),
                 ]
@@ -52,10 +52,7 @@ class UserType extends AbstractType
     }
 
     /**
-     * Configure options
-     *
-     * @param OptionsResolver $resolver
-     * @return void
+     * Configure options.
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
@@ -65,9 +62,7 @@ class UserType extends AbstractType
     }
 
     /**
-     * Get block prefix
-     *
-     * @return string
+     * Get block prefix.
      */
     public function getBlockPrefix(): string
     {

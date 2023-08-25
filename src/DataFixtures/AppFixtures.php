@@ -1,6 +1,6 @@
 <?php
 /**
- * App fixtues
+ * App fixtues.
  */
 
 namespace App\DataFixtures;
@@ -9,15 +9,14 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
 /**
- * Class AppFixtures
+ * Class AppFixtures.
  */
 class AppFixtures extends Fixture
 {
     /**
-     * Load
+     * Load data.
      *
      * @param ObjectManager $manager
-     * @return void
      */
     public function load(ObjectManager $manager): void
     {

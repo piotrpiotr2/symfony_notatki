@@ -1,6 +1,6 @@
 <?php
 /**
- * Todo Controller
+ * Todo Controller.
  */
 
 namespace App\Controller;
@@ -16,29 +16,25 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class TodoController
+ * Class TodoController.
  */
 #[Route('/todos')]
 class TodoController extends AbstractController
 {
     /**
-     * Todo service
-     *
-     * @var TodoService
+     * Todo service.
      */
     private TodoService $todoService;
 
     /**
-     * Translator interface
-     *
-     * @var TranslatorInterface
+     * Translator interface.
      */
     private TranslatorInterface $translator;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param TodoService $todoService
+     * @param TodoService         $todoService
      * @param TranslatorInterface $translator
      */
     public function __construct(TodoService $todoService, TranslatorInterface $translator)
@@ -48,10 +44,11 @@ class TodoController extends AbstractController
     }
 
     /**
-     * Create action
+     * Create action.
      *
-     * @param Request $request
+     * @param Request  $request
      * @param TodoList $todoList
+     *
      * @return Response
      */
     #[Route(
@@ -68,6 +65,7 @@ class TodoController extends AbstractController
             $todo->setTodoList($todoList);
             $this->todoService->save($todo);
             $this->addFlash('success', $this->translator->trans('message.created_successfully'));
+
             return $this->redirectToRoute('todolist_index');
         }
 
@@ -75,10 +73,11 @@ class TodoController extends AbstractController
     }
 
     /**
-     * Edit action
+     * Edit action.
      *
      * @param Request $request
-     * @param Todo $todo
+     * @param Todo    $todo
+     *
      * @return Response
      */
     #[Route(
@@ -104,7 +103,7 @@ class TodoController extends AbstractController
 
         return $this->render(
             'todo/edit.html.twig',
-            ['form' => $form->createView(), 'todo' => $todo,]
+            ['form' => $form->createView(), 'todo' => $todo]
         );
     }
 }
