@@ -48,7 +48,7 @@ class CategoryRepository extends ServiceEntityRepository
     }
 
     /**
-     * Query notes by author.
+     * Query categories by author.
      *
      * @param UserInterface $user User entity
      * @return QueryBuilder Query builder

@@ -5,20 +5,27 @@ namespace App\Form;
 use App\Entity\Tag;
 use App\Entity\Note;
 use App\Entity\Category;
+use App\Repository\CategoryRepository;
+use App\Repository\TagRepository;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class NoteType extends AbstractType
 {
     private TranslatorInterface $translator;
 
-    public function __construct(TranslatorInterface $translator)
+    private UserInterface $user;
+
+    public function __construct(TranslatorInterface $translator, Security $security)
     {
+        $this->user = $security->getUser();
         $this->translator = $translator;
     }
 
@@ -74,6 +81,9 @@ class NoteType extends AbstractType
                         return $category->getName();
                     },
                     'multiple' => false,
+                    'query_builder' => function (CategoryRepository $repository): QueryBuilder {
+                        return $repository->queryByAuthor($this->user);
+                    },
                 ]
             );
     }

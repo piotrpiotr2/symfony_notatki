@@ -32,7 +32,8 @@ class TodoListController extends AbstractController
     )]
     public function index(): Response
     {
-        $todoLists = $this->todoListService->getAll();
+        $user = $this->getUser();
+        $todoLists = $this->todoListService->getAll($user);
         return $this->render(
             'todo_lists/index.html.twig',
             ['todoLists' => $todoLists]
